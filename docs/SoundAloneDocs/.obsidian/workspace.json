@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Core.md",
+                "file": "Сервис плейлистов.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Core"
+              "title": "Сервис плейлистов"
             }
           }
         ]
@@ -210,8 +210,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cf37caf3d2329940",
+  "active": "e19ad1543e4dc9c1",
   "lastOpenFiles": [
+    "Социальный сервис.md",
+    "Сервис плейлистов.md",
+    "Базовый функционал.md",
+    "Музыка.md",
+    "Аккаунт пользователя.md",
     "Core.md",
     "создайте ссылку.md"
   ]
