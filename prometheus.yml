@@ -1,0 +1,18 @@
+﻿global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'soundalone-services'
+    metrics_path: '/metrics' # Стандартный endpoint для .NET метрик
+    static_configs:
+      - targets:
+          - 'auth-service:8080'
+          - 'player-service:8080'
+          - 'playlist-service:8080'
+          - 'moderation-service:8080'
+          - 'notification-service:8080'
+          - 'social-service:8080'
