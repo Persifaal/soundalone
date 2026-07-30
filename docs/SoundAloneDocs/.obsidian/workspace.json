@@ -4,11 +4,33 @@
     "type": "split",
     "children": [
       {
-        "id": "e438d8d444824050",
+        "id": "fca453bfe53d57f9",
         "type": "tabs",
         "children": [
           {
-            "id": "938eeccaff41167b",
+            "id": "4b545b001ab11844",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "juggl_view",
+              "state": {},
+              "pinned": true,
+              "icon": "lucide-file",
+              "title": "Juggl"
+            }
+          },
+          {
+            "id": "589b9b221fd43aa5",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "Граф"
+            }
+          },
+          {
+            "id": "553d4bf8635f23ec",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -21,7 +43,8 @@
               "title": "Core"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -211,12 +234,13 @@
       "templates:Вставить шаблон": false,
       "command-palette:Открыть палитру команд": false,
       "bases:Создать новую базу": false,
-      "obsidian-git:Open Git source control": false,
-      "juggl:Juggl global graph": false
+      "juggl:Juggl global graph": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "5302be537fb0a299",
   "lastOpenFiles": [
+    "Core.md",
     "Обложка музыки.md",
     "Музыка.md",
     "Аудиофайл.md",
@@ -231,7 +255,6 @@
     "Плейлист.md",
     "Сервис плейлистов.md",
     "Социальный сервис.md",
-    "Core.md",
     "Подписки.md",
     "Сервис авторизации.md",
     "Отправка сообщений.md",
