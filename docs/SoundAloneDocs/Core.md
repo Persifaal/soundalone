@@ -17,4 +17,12 @@ Kafka - Брокер сообщений
 - [[Сервис уведомлений]]
 - [[Социальный сервис]]
 
+| Сервис            | URL / Адрес                                     | Логин / Пароль                                   |
+| ----------------- | ----------------------------------------------- | ------------------------------------------------ |
+| **Grafana**       | [http://localhost:3000](http://localhost:3000/) | `admin` / `admin`                                |
+| **Prometheus**    | [http://localhost:9090](http://localhost:9090/) | Без пароля                                       |
+| **MinIO Console** | [http://localhost:9001](http://localhost:9001/) | `minioadmin` / `minioadmin123`                   |
+| **PostgreSQL**    | localhost:5432                                  | `soundalone_user` / `soundalone_secret_password` |
+| **Redis**         | localhost:6379                                  | Без пароля (можно добавить при необходимости)    |
+| **Kafka**         | localhost:9092                                  | Для внутренних нужд кластера                     |
 # [[Базовый функционал]]
