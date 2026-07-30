@@ -180,13 +180,23 @@
               "icon": "lucide-list",
               "title": "Структура Core"
             }
+          },
+          {
+            "id": "5302be537fb0a299",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -196,12 +206,13 @@
       "daily-notes:Сегодняшняя заметка": false,
       "templates:Вставить шаблон": false,
       "command-palette:Открыть палитру команд": false,
-      "bases:Создать новую базу": false
+      "bases:Создать новую базу": false,
+      "obsidian-git:Open Git source control": false
     }
   },
   "active": "cf37caf3d2329940",
   "lastOpenFiles": [
-    "создайте ссылку.md",
-    "Core.md"
+    "Core.md",
+    "создайте ссылку.md"
   ]
 }
