@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "3f9fc91fc3d1d8da",
+        "id": "e438d8d444824050",
         "type": "tabs",
         "children": [
           {
-            "id": "cf37caf3d2329940",
+            "id": "938eeccaff41167b",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Граф"
+              "type": "markdown",
+              "state": {
+                "file": "Core.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Core"
             }
           }
         ]
@@ -211,18 +215,26 @@
       "juggl:Juggl global graph": false
     }
   },
-  "active": "cf37caf3d2329940",
+  "active": "5302be537fb0a299",
   "lastOpenFiles": [
-    "Аккаунт пользователя.md",
+    "Обложка музыки.md",
+    "Музыка.md",
+    "Аудиофайл.md",
+    "Метаданные музыки.md",
+    "Сервис Плеера.md",
+    "Без названия.base",
+    "Сервис уведомлений.md",
+    "Базовый функционал.md",
     "Сервис модерации.md",
-    "Социальный сервис.md",
+    "Аккаунт пользователя.md",
+    "Профиль пользователя.md",
+    "Плейлист.md",
     "Сервис плейлистов.md",
+    "Социальный сервис.md",
     "Core.md",
     "Подписки.md",
     "Сервис авторизации.md",
-    "Музыка.md",
     "Отправка сообщений.md",
-    "Базовый функционал.md",
     "создайте ссылку.md"
   ]
 }

@@ -20,6 +20,13 @@
         "a": 1,
         "rgb": 14725458
       }
+    },
+    {
+      "query": "tag:#файл  ",
+      "color": {
+        "a": 1,
+        "rgb": 5420768
+      }
     }
   ],
   "collapse-display": true,
@@ -32,6 +39,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.9999999999999958,
-  "close": false
+  "scale": 0.9999999999999952,
+  "close": true
 }
