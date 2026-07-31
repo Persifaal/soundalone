@@ -10,5 +10,6 @@ public class PlayerDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder); 
         
+        modelBuilder.HasDefaultSchema("player_schema");
     }
 }

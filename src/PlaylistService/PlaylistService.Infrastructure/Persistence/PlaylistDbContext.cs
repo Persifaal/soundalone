@@ -19,5 +19,6 @@ public class PlaylistDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder); 
         
+        modelBuilder.HasDefaultSchema("playlists_schema");
     }
 }
