@@ -4,7 +4,7 @@ namespace PlayerService.Infrastructure.Persistence;
 
 public class PlayerDbContext : DbContext
 {
-    protected PlayerDbContext(DbContextOptions options) : base(options) {}
+    public PlayerDbContext(DbContextOptions options) : base(options) {}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

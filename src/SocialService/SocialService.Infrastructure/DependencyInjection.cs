@@ -14,8 +14,11 @@ public static class DependencyInjection
         services.AddDbContext<SocialDbContext>(options =>
             options.UseNpgsql(
                 configuration.GetConnectionString("DefaultConnection"),
-                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(SocialDbContext).Assembly.FullName)
-            ));
+                npgsqlOptions => 
+                {
+                    npgsqlOptions.MigrationsAssembly(typeof(SocialDbContext).Assembly.FullName);
+                    npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "public");
+                }));
         
         return services;
     }

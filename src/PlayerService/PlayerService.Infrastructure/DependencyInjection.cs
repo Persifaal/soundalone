@@ -13,7 +13,11 @@ public static class DependencyInjection
     {
         services.AddDbContext<PlayerDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
-                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(PlayerDbContext).Assembly.FullName)
+                    npgsqlOptions => 
+                    {
+                        npgsqlOptions.MigrationsAssembly(typeof(PlayerDbContext).Assembly.FullName);
+                        npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "public");
+                    }
             ));
         
         return services;

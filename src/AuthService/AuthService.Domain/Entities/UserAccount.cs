@@ -9,12 +9,6 @@ namespace AuthService.Domain.Entities;
 [Table("user_accounts")]
 public class UserAccount
 {
-    protected UserAccount()
-    {
-        Id = Guid.NewGuid();
-        CreatedAt  = DateTime.UtcNow;
-    }
-    
     [Key]
     [Column("id")]
     public Guid Id { get; set; }

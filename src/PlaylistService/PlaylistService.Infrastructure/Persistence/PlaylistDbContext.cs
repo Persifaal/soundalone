@@ -5,7 +5,7 @@ namespace PlaylistService.Infrastructure.Persistence;
 
 public class PlaylistDbContext : DbContext
 {
-    protected PlaylistDbContext(DbContextOptions options) : base(options) {}
+    public PlaylistDbContext(DbContextOptions options) : base(options) {}
 
     public DbSet<Playlist> Playlists { get; set; }
     public DbSet<PlaylistAuthor> PlaylistAuthors { get; set; }

@@ -13,8 +13,11 @@ public static class DependencyInjection
     {
         services.AddDbContext<PlaylistDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), 
-                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(PlaylistDbContext).Assembly.FullName)
-                ));
+                npgsqlOptions => 
+                {
+                    npgsqlOptions.MigrationsAssembly(typeof(PlaylistDbContext).Assembly.FullName);
+                    npgsqlOptions.MigrationsHistoryTable("__EFMigrationsHistory", "public");
+                }));
         return services;
     }
 }

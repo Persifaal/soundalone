@@ -6,13 +6,6 @@ namespace AuthService.Domain.Entities;
 [Table("user_sessions")]
 public class UserSession
 {
-    protected UserSession(UserAccount user)
-    {
-        Id = Guid.NewGuid();
-        CreatedAt = DateTime.UtcNow;
-        User = user;
-    }
-    
     [Key]
     [Column("id")]
     public Guid Id { get; set; }

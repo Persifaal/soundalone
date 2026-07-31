@@ -5,7 +5,7 @@ namespace SocialService.Infrastructure.Persistence;
 
 public class SocialDbContext : DbContext
 {
-    protected SocialDbContext(DbContextOptions options) : base(options) {}
+    public SocialDbContext(DbContextOptions options) : base(options) {}
 
     public DbSet<UserProfile> UserProfiles { get; set; }
     

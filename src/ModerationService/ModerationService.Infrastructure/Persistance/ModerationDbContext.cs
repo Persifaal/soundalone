@@ -5,7 +5,7 @@ namespace ModerationService.Infrastructure.Persistance;
 
 public class ModerationDbContext : DbContext
 {
-    protected ModerationDbContext(DbContextOptions options) : base(options) { }
+    public ModerationDbContext(DbContextOptions options) : base(options) { }
     
     public DbSet<UserReport> UserReports { get; set; }
 }
