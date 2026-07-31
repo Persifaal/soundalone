@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using SocialService.Domain.Enums;
 
 namespace SocialService.Domain.Entities;
 
@@ -26,10 +27,15 @@ public class UserProfile
     [Column("banner_url")]
     [MaxLength(500)]
     public string? BannerUrl { get; set; }
+
+    [Column("is_musician")] 
+    public bool IsMusician { get; set; } = false;
+    
+    [Column("musician_type")]
+    public MusicianType? MusicianType { get; set; }
     
     [Column("role")]
-    [MaxLength(50)]
-    public string Role { get; set; } = "User";
+    public UserRole UserRole { get; set; }
     
     [Column("bio")]
     [MaxLength(500)]
