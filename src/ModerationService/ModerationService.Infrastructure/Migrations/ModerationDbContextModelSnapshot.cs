@@ -17,6 +17,7 @@ namespace ModerationService.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("moderation_schema")
                 .HasAnnotation("ProductVersion", "8.0.29")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -52,7 +53,7 @@ namespace ModerationService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("user_reports");
+                    b.ToTable("user_reports", "moderation_schema");
                 });
 #pragma warning restore 612, 618
         }
