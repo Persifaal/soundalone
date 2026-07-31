@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PlaylistService.Infrastructure.Persistence;
 
 namespace PlaylistService.Infrastructure;
 
@@ -9,6 +11,10 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.AddDbContext<PlaylistDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), 
+                npgsqlOptions => npgsqlOptions.MigrationsAssembly(typeof(PlaylistDbContext).Assembly.FullName)
+                ));
         return services;
     }
 }
