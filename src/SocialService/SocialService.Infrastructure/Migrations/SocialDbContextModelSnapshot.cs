@@ -169,7 +169,7 @@ namespace SocialService.Infrastructure.Migrations
                     b.HasIndex("UserTag")
                         .IsUnique();
 
-                    b.ToTable("UserProfile", "social_schema");
+                    b.ToTable("user_profile", "social_schema");
                 });
 
             modelBuilder.Entity("SocialService.Domain.Entities.ChatMembers", b =>
