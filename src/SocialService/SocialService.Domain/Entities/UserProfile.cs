@@ -13,7 +13,7 @@ public class UserProfile
 
     [Required]
     [Column("user_tag")] 
-    [MaxLength()]
+    [MaxLength(32)]
     public string UserTag { get; set; }
     
     [Required]
