@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\SoundAlone.Shared.Infrastructure\SoundAlone.Shared.Infrastructure.csproj" />
     <ProjectReference Include="..\PlaylistService.Application\PlaylistService.Application.csproj" />
   </ItemGroup>
 
