@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Features\Dtos\" />
     <Folder Include="Features\Validators\" />
-    <Folder Include="Interfaces\" />
   </ItemGroup>
 
   <PropertyGroup>
