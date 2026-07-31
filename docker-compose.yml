@@ -1,6 +1,6 @@
-version: '3.8'
-
 services:
+  # ================= ИНФРАСТРУКТУРА =================
+
   postgres:
     image: postgres:16-alpine
     container_name: soundalone-postgres
@@ -51,23 +51,35 @@ services:
     networks:
       - soundalone-network
 
-  kafka:
-    image: bitnami/kafka:3.7
-    container_name: soundalone-kafka
+  zookeeper:
+    container_name: soundalone-zookeeper
+    image: confluentinc/cp-zookeeper:7.6.1
+    restart: unless-stopped
     environment:
-      - KAFKA_ENABLE_KRAFT=yes
-      - KAFKA_CFG_PROCESS_ROLES=broker,controller
-      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
-      - KAFKA_CFG_BROKER_ID=1
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
-      - ALLOW_PLAINTEXT_LISTENER=yes
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - "9092:9092"
-    volumes:
-      - kafka_data:/bitnami/kafka
+      - "${ZOOKEEPER_PORT:-2181}:2181"
+    networks:
+      - soundalone-network
+  
+  kafka:
+    container_name: soundalone-kafka
+    image: confluentinc/cp-kafka:7.6.1
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    ports:
+      - "${KAFKA_PORT:-9092}:9092"
     networks:
       - soundalone-network
 
@@ -100,14 +112,12 @@ services:
     networks:
       - soundalone-network
 
-  # ================= МИКРОСЕРВИСЫ =================
-  # Шаблон для всех 6 сервисов. 
-  # Зависимости (depends_on) можно корректировать в зависимости от логики.
+    # ================= МИКРОСЕРВИСЫ =================
 
   auth-service:
     build:
-      context: ./src/AuthService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/AuthService/AuthService.Api/Dockerfile # Проверьте точный путь к папке .Api
     container_name: soundalone-auth
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=soundalone_db;Username=soundalone_user;Password=soundalone_secret_password
@@ -127,8 +137,8 @@ services:
 
   player-service:
     build:
-      context: ./src/PlayerService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/PlayerService/PlayerService.Api/Dockerfile # Проверьте точный путь
     container_name: soundalone-player
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=soundalone_db;Username=soundalone_user;Password=soundalone_secret_password
@@ -147,8 +157,8 @@ services:
 
   playlist-service:
     build:
-      context: ./src/PlaylistService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/PlaylistService/PlaylistService.Api/Dockerfile # Проверьте точный путь
     container_name: soundalone-playlist
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=soundalone_db;Username=soundalone_user;Password=soundalone_secret_password
@@ -165,8 +175,8 @@ services:
 
   moderation-service:
     build:
-      context: ./src/ModerationService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/ModerationService/ModerationService.Api/Dockerfile # Проверьте точный путь
     container_name: soundalone-moderation
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=soundalone_db;Username=soundalone_user;Password=soundalone_secret_password
@@ -183,8 +193,8 @@ services:
 
   notification-service:
     build:
-      context: ./src/NotificationService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/NotificationService/NotificationService.Api/Dockerfile
     container_name: soundalone-notification
     environment:
       - ConnectionStrings__Redis=redis:6379
@@ -201,8 +211,8 @@ services:
 
   social-service:
     build:
-      context: ./src/SocialService
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: src/SocialService/SocialService.Api/Dockerfile # Проверьте точный путь
     container_name: soundalone-social
     environment:
       - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=soundalone_db;Username=soundalone_user;Password=soundalone_secret_password

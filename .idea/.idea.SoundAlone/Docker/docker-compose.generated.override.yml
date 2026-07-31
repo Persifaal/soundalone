@@ -1,0 +1,119 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  auth-service:
+    build:
+      context: "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone"
+      dockerfile: "src/AuthService/AuthService.Api/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/AuthService.Api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "authservice.api:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone\\src\\AuthService\\AuthService.Api:/app:rw"
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone:/src:rw"
+    - "C:\\Users\\parsifal\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
+  moderation-service:
+    build:
+      context: "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone"
+      dockerfile: "src/ModerationService/ModerationService.Api/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/ModerationService.Api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "moderationservice.api:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone\\src\\ModerationService\\\
+      ModerationService.Api:/app:rw"
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone:/src:rw"
+    - "C:\\Users\\parsifal\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
+  notification-service:
+    build:
+      context: "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone"
+      dockerfile: "src/NotificationService/NotificationService.Api/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/NotificationService.Api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "notificationservice.api:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone\\src\\NotificationService\\\
+      NotificationService.Api:/app:rw"
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone:/src:rw"
+    - "C:\\Users\\parsifal\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
+  player-service:
+    build:
+      context: "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone"
+      dockerfile: "src/PlayerService/PlayerService.Api/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/PlayerService.Api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "playerservice.api:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone\\src\\PlayerService\\PlayerService.Api:/app:rw"
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone:/src:rw"
+    - "C:\\Users\\parsifal\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
+  playlist-service:
+    build:
+      context: "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone"
+      dockerfile: "src/PlaylistService/PlaylistService.Api/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/PlaylistService.Api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "playlistservice.api:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone\\src\\PlaylistService\\\
+      PlaylistService.Api:/app:rw"
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone:/src:rw"
+    - "C:\\Users\\parsifal\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
+  social-service:
+    build:
+      context: "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone"
+      dockerfile: "src/SocialService/SocialService.Api/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net8.0/SocialService.Api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "socialservice.api:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone\\src\\SocialService\\SocialService.Api:/app:rw"
+    - "C:\\Users\\parsifal\\Desktop\\Projects\\soundalone:/src:rw"
+    - "C:\\Users\\parsifal\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
