@@ -4,7 +4,7 @@ using SocialService.Domain.Enums;
 
 namespace SocialService.Domain.Entities;
 
-[Table("UserProfile")]
+[Table("user_profile")]
 public class UserProfile
 {
     [Key]
