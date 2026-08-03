@@ -1,0 +1,209 @@
+﻿.card-img {
+    width: 100%;
+}
+
+:root {
+    --orbit-speed: 40s;
+
+    /* Радиус кольца */
+    --orbit-radius: 320px;
+
+    /* Размер карточек */
+    --card-size: 120px;
+
+    /* Наклон плоскости кольца */
+    --orbit-tilt-x: 140deg;
+    --orbit-tilt-y: -120deg;
+}
+
+.orbit-section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #151a24 0%, #0a0a0a 100%);
+}
+
+/* Контейнер всей композиции */
+.orbit-container {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    left: 0;
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+
+    transform-style: preserve-3d;
+
+    overflow: visible;
+}
+
+
+/* =========================
+   ЦЕНТРАЛЬНОЕ ИЗОБРАЖЕНИЕ
+   ========================= */
+
+.center-card {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    left: 0;
+    top: 0;
+
+    transform: translateZ(0);
+
+    border-radius: 20px;
+
+    pointer-events: none;
+}
+
+.center-card img {
+    position: absolute;
+
+    width: 100%;
+    height: auto;
+
+    left: -5%;
+    top: -10%;
+
+    object-fit: initial;
+}
+
+
+/* =========================
+   ВРАЩАЮЩЕЕСЯ КОЛЬЦО
+   ========================= */
+
+.orbit-ring {
+    position: absolute;
+
+    width: 0;
+    height: 0;
+
+    left: 50%;
+    top: 50%;
+
+    transform-style: preserve-3d;
+
+    animation: orbit-rotate var(--orbit-speed) linear infinite;
+
+    z-index: 5;
+}
+
+
+/* =========================
+   КАРТОЧКИ
+   ========================= */
+
+.orbit-card {
+    position: absolute;
+
+    width: var(--card-size);
+    height: var(--card-size);
+
+    left: calc(var(--card-size) / -2);
+    top: calc(var(--card-size) / -2);
+
+    transform-style: preserve-3d;
+
+    transform:
+            rotateZ(var(--rotation))
+            translateX(var(--orbit-radius));
+}
+
+
+.orbit-card-face {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    transform-style: preserve-3d;
+
+    transform: rotateY(90deg);
+}
+
+
+.orbit-card-content {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background: var(--card-color);
+
+    border-radius: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    font-weight: 600;
+
+    box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.4);
+
+    backface-visibility: hidden;
+
+    transition: transform 0.3s ease;
+}
+
+
+.orbit-card-content:hover {
+    transform: scale(1.15);
+}
+
+
+.orbit-card-content h3 {
+    margin: 0;
+
+    font-size: 18px;
+
+    text-align: center;
+}
+
+.orbit-card-front {
+    transform: rotateY(0deg);
+}
+.orbit-card-back {
+    transform: rotateY(180deg);
+}
+
+/* =========================
+   АНИМАЦИЯ
+   ========================= */
+
+@keyframes orbit-rotate {
+    from {
+        transform:
+                rotateX(var(--orbit-tilt-x))
+                rotateY(var(--orbit-tilt-y))
+                rotateZ(0deg);
+    }
+
+    to {
+        transform:
+                rotateX(var(--orbit-tilt-x))
+                rotateY(var(--orbit-tilt-y))
+                rotateZ(360deg);
+    }
+}
+
+
+/* Остановка вращения */
+.orbit-container:hover .orbit-ring {
+    animation-play-state: paused;
+}

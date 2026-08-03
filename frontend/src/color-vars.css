@@ -1,0 +1,16 @@
+﻿:root{
+    --text-color-default: #eaeaea;
+    --text-color-highlight: #f4f4f4;
+    --text-color-darkner: #cccccc;
+    --text-color-locked: #888888;
+    --button-text-color-default: #eaeaea;
+    --button-color-primary: #10151EFF;
+    --button-color-primary-transparent-30: rgba(16, 21, 30, 0.3);
+    --button-text-color-selected: #c3c3c3;
+    --button-color-selected: #111820;
+    --button-text-color-active: #ffffff;
+    --button-color-active: #1b2030;
+    --background-color-default: #080D15;
+    --accent-header-bg: #151a24;
+    --accent-header-bg-transparent80: rgba(21, 26, 36, 0.8);
+}
