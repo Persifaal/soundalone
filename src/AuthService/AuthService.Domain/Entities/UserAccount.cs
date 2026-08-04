@@ -12,11 +12,11 @@ public class UserAccount
     [Key]
     [Column("id")]
     public Guid Id { get; set; }
-    
+
     [Required]
     [MaxLength(128)]
     [Column("email")]
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; }
 
     [Column("email_verified")]
     public bool EmailVerified { get; set; } = false;
@@ -24,9 +24,8 @@ public class UserAccount
     [Required]
     [MaxLength(512)]
     [Column("password_hash")]
-    public required string PasswordHash { get; set; } = string.Empty;
+    public required string PasswordHash { get; set; }
     
-    [Required]
     [MaxLength(128)]
     [Column("phone_number")]
     public string? PhoneNumber { get; set; } = string.Empty;

@@ -1,4 +1,5 @@
-﻿using AuthService.Domain.Entities;
+﻿using AuthService.Application.Interfaces.Repositories;
+using AuthService.Domain.Entities;
 using AuthService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace AuthService.Infrastructure.Repositories
 {
-    public sealed class AuthRepository
+    public sealed class UserAccountRepository : IUserAccountRepository
     {
         private readonly AuthDbContext _context;
 
-        public AuthRepository(AuthDbContext context)
+        public UserAccountRepository(AuthDbContext context)
         {
             _context = context;
         }

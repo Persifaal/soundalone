@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AuthService.Application.Models
 {
-    public sealed record TokenPair(
+    public record TokenPair(
     string AccessToken,
     DateTime AccessTokenExpiresAtUtc,
     string AccessTokenJti,
