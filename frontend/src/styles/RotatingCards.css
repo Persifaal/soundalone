@@ -204,6 +204,6 @@
 
 
 /* Остановка вращения */
-.orbit-container:hover .orbit-ring {
+.orbit-container .orbit-ring:hover {
     animation-play-state: paused;
 }

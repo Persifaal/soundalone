@@ -1,0 +1,126 @@
+﻿.agreements label, .register-section p{
+    font-size: 0.75em;
+}
+input{
+    font-size: 0.75em;
+}
+.register-section{
+    background: linear-gradient(135deg, #090A0D 0%, #292D3B 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 30px;
+    padding: 20px;
+    font-size: 24px;
+
+}
+
+.register-section form{
+    max-width: 635px;
+    min-width: 435px;
+    min-height: 635px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    background-color: var(--accent-cards-bg-transparent-30);
+}
+
+.register-section h1{
+    color: var(--text-color-highlight);
+    font-size: 2em;
+}
+
+.form-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 30px;
+}
+
+.register-section input{
+    background: linear-gradient(90deg, #111621 0%, #1D2A42 100%);
+    padding: 0.5em;
+    outline: none;
+    border: 1px solid var(--accent-border-color);
+    border-radius: 1em;
+    gap: 20px;
+}
+
+.register-section input[type='checkbox']{
+    display: none;
+}
+.custom-checkbox{
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 1px solid var(--accent-border-color);
+    border-color: var(--accent-border-color);
+    border-radius: 0.25em;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: var(--accent-checkbox-color-checked);
+}
+
+.confirm-form button{
+    background-color: var(--accent-button-bg-default);
+    border: 1px solid var(--accent-border-color);
+    color: var(--button-text-color-default);
+    font-size: 0.75em;
+    border-radius: 0.5em;
+    padding: 1em;
+    transition: 0.3s;
+}
+
+.form-wrapper div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0.25em 0;
+}
+
+.form-wrapper p{
+    margin: 0;
+}
+
+.form-inputs, .confirm-form{
+    align-items: normal;
+    justify-content: left;
+    gap: 10px
+}
+
+.form-inputs div{
+    display: flex;
+    flex-direction: column;
+}
+
+.agreements div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.error-text{
+    color: var(--text-danger-color);
+    font-size: 0.4em;
+}
+
+.confirm-form button:hover{
+    background-color: var(--accent-button-bg-selected);
+    color: var(--text-color-highlight);
+}
+
+.confirm-form button:active{
+    background-color: var(--accent-button-bg-highlight);
+    color: var(--text-color-highlight);
+}

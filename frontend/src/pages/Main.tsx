@@ -1,9 +1,12 @@
 import React from 'react';
-import './index.css';
-import './App.css';
-import './RotatingCards.css';
+import '../styles/index.css';
+import '../styles/App.css';
+import '../styles/RotatingCards.css';
 // @ts-ignore
-import cardImage from './Images/card.png';
+import cardImage from '../Images/card.png';
+import Header from "../Components/Header";
+import Footer from "../Components/Footer";
+
 function Main() {
     // Карточки
     const cards = [
@@ -27,29 +30,7 @@ function Main() {
 
   return (
     <div className="App">
-        <header className="app-header">
-            <div className="app-header-wrapper">
-                <div className="header-logo-wrap">
-                    <div className="header-logo-section-wrap">
-                        <a href="/" aria-label="Перейти на главную" className="logo-link">
-                            SoundAlone
-                        </a>
-                    </div>
-                    <div className="header-logo-section-wrap">
-                        <p>
-                            Your first social for music
-                        </p>
-                    </div>
-                </div>
-                <div className="header-sections-wrap">
-                    <div className="header-buttons">
-                        <a href="/search" className="header-button">Искать музыку</a>
-                        <a href="/community" className="header-button">Сообщество</a>
-                        <a href="/register" className="header-button">Зарегистрироваться</a>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <Header/>
         <main>
             <section className="display-card">
                 <div className="container">
@@ -98,6 +79,7 @@ function Main() {
                 </div>
             </section>
         </main>
+        <Footer/>
     </div>
   );
 }
