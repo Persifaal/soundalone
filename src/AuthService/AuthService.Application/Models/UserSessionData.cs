@@ -8,7 +8,11 @@ namespace AuthService.Application.Models
 {
     public record UserSessionData(
         Guid SessionId,
+        Guid UserId,
+        string RefreshTokenHash,
+        DateTime CreatedAtUtc,
         DateTime ExpiresAtUtc,
-        string? RefreshTokenHash
+        string? UserAgent,
+        string? IpAddress
         );
 }

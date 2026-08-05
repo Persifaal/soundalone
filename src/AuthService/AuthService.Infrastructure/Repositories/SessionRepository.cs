@@ -24,11 +24,25 @@ namespace AuthService.Infrastructure.Repositories
             await _dbContext.UserSessions.AddAsync(session, cancellationToken);
         }
 
+        public async Task UpdateAsync(UserSession session, CancellationToken cancellationToken)
+        {
+            _dbContext.UserSessions.Update(session);
+        }
+
         public async Task<UserSession?> GetByRefreshTokenHashAsync(string refreshTokenHash, CancellationToken cancellationToken)
         {
             return await _dbContext.UserSessions.FirstOrDefaultAsync(
                 s => s.RefreshTokenHash == refreshTokenHash &&
-                s.ExpiresAt > DateTime.UtcNow, cancellationToken);
+                s.ExpiresAt > DateTime.UtcNow &&
+                s.RevokedAt == null, cancellationToken);
+        }
+
+        public async Task<UserSession?> GetSessionByIdAsync(Guid sessionId, CancellationToken cancellationToken)
+        {
+            return await _dbContext.UserSessions.FirstOrDefaultAsync(
+                s => s.Id == sessionId &&
+                s.ExpiresAt > DateTime.UtcNow &&
+                s.RevokedAt == null, cancellationToken);
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken)

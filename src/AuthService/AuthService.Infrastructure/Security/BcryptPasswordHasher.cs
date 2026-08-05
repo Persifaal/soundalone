@@ -1,4 +1,4 @@
-﻿using AuthService.Application.Interfaces;
+﻿using AuthService.Application.Interfaces.Security;
 using BCrypt.Net;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace AuthService.Infrastructure.Security
 
         public bool Verify(string password, string passwordHash)
         {
-            return BCrypt.Net.BCrypt.Verify(password, passwordHash);
+            return BCrypt.Net.BCrypt.EnhancedVerify(password, passwordHash);
         }
     }
 }

@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuthService.Application.Interfaces.Repositories
+namespace AuthService.Application.Interfaces.Manager
 {
-    public interface IRedisSessionRepository
+    public interface IRedisSessionManager
     {
-        public Task CreateSessionAsync(UserSession session, TimeSpan ttl, CancellationToken ct = default);
+        public Task CreateSessionAsync(UserSessionData session, TimeSpan ttl, CancellationToken ct = default);
 
         public Task<UserSession?> GetSessionByHashAsync(string refreshTokenHash, CancellationToken ct = default);
 

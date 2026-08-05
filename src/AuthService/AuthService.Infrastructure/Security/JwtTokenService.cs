@@ -1,4 +1,5 @@
-﻿using AuthService.Application.Models;
+﻿using AuthService.Application.Interfaces.Services;
+using AuthService.Application.Models;
 using AuthService.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace AuthService.Infrastructure.Security
 {
-    public class JwtTokenService
+    public class JwtTokenService : IJwtTokenService
     {
         private readonly AuthOptions _options;
         private readonly byte[] _secretKey;
