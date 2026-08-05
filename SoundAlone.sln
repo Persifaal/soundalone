@@ -71,6 +71,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateway", "ApiGateway", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway.Api", "src\ApiGateway\ApiGateway.Api\ApiGateway.Api.csproj", "{CD4957B6-0D62-A5C9-2724-D05857A70D59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundAlone.Shared.Contracts", "src\Shared\SoundAlone.Shared.Contracts\SoundAlone.Shared.Contracts.csproj", "{7851D824-69BE-4863-856C-598C0743A942}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -393,6 +395,18 @@ Global
 		{CD4957B6-0D62-A5C9-2724-D05857A70D59}.Release|x64.Build.0 = Release|Any CPU
 		{CD4957B6-0D62-A5C9-2724-D05857A70D59}.Release|x86.ActiveCfg = Release|Any CPU
 		{CD4957B6-0D62-A5C9-2724-D05857A70D59}.Release|x86.Build.0 = Release|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Debug|x64.Build.0 = Debug|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Debug|x86.Build.0 = Debug|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Release|x64.ActiveCfg = Release|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Release|x64.Build.0 = Release|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Release|x86.ActiveCfg = Release|Any CPU
+		{7851D824-69BE-4863-856C-598C0743A942}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -424,5 +438,6 @@ Global
 		{B642B159-7C99-41E8-BF17-7833E1DDC9FC} = {D4595490-2865-1535-2818-B9CE18534A11}
 		{3116754A-BB7A-4E40-A107-05A384E7D2FD} = {D4730CFB-DAF6-4012-89FA-5614B93F419B}
 		{CD4957B6-0D62-A5C9-2724-D05857A70D59} = {E2E6E23B-2F64-4657-A171-8AA919B05A1A}
+		{7851D824-69BE-4863-856C-598C0743A942} = {D4730CFB-DAF6-4012-89FA-5614B93F419B}
 	EndGlobalSection
 EndGlobal

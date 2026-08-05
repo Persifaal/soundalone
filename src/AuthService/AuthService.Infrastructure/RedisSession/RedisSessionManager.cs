@@ -1,4 +1,4 @@
-﻿using AuthService.Application.Interfaces.Repositories;
+﻿using AuthService.Application.Interfaces.Manager;
 using AuthService.Application.Models;
 using AuthService.Domain.Entities;
 using StackExchange.Redis;
@@ -11,20 +11,20 @@ using System.Threading.Tasks;
 
 namespace AuthService.Infrastructure.RedisSession
 {
-    public class RedisSessionRepository : IRedisSessionRepository
+    public class RedisSessionManager : IRedisSessionManager
     {
         private readonly IDatabase _redis;
         private const string KeyPrefix = "auth:rt:";
 
-        public RedisSessionRepository(IConnectionMultiplexer redis)
+        public RedisSessionManager(IConnectionMultiplexer redis)
         {
             _redis = redis.GetDatabase();
         }
 
-        public async Task CreateSessionAsync(UserSessionData sessionData, TimeSpan ttl, CancellationToken ct = default)
+        public async Task CreateSessionAsync(UserSessionData session, TimeSpan ttl, CancellationToken ct = default)
         {
-            var key = $"{KeyPrefix}{sessionData.RefreshTokenHash}";
-            var json = JsonSerializer.Serialize(sessionData);
+            var key = $"{KeyPrefix}{session.RefreshTokenHash}";
+            var json = JsonSerializer.Serialize(session);
             await _redis.StringSetAsync(key, json, ttl);
         }
 
@@ -43,5 +43,6 @@ namespace AuthService.Infrastructure.RedisSession
             var key = $"{KeyPrefix}{session.RefreshTokenHash}";
             await _redis.KeyDeleteAsync(key);
         }
+
     }
 }

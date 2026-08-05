@@ -14,6 +14,11 @@ public class UserAccount
     public Guid Id { get; set; }
 
     [Required]
+    [MaxLength(20)]
+    [Column("username")]
+    public string Username { get; set; }
+
+    [Required]
     [MaxLength(128)]
     [Column("email")]
     public string Email { get; set; }

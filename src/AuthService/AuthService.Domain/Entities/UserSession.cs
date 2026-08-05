@@ -17,7 +17,7 @@ public class UserSession
     [Required]
     [Column("refresh_token_hash")]
     [MaxLength(255)]
-    public string RefreshTokenHash { get; set; } = string.Empty;
+    public string RefreshTokenHash { get; set; }
 
     [Required]
     [Column("expires_at")]
