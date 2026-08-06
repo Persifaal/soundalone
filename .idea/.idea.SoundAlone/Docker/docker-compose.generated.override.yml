@@ -10,7 +10,6 @@ services:
     - "dotnet"
     - "/app/bin/Debug/net8.0/AuthService.Api.dll"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "authservice.api:dev"
     ports: []
@@ -29,7 +28,6 @@ services:
     - "dotnet"
     - "/app/bin/Debug/net8.0/ModerationService.Api.dll"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "moderationservice.api:dev"
     ports: []
@@ -49,7 +47,6 @@ services:
     - "dotnet"
     - "/app/bin/Debug/net8.0/NotificationService.Api.dll"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "notificationservice.api:dev"
     ports: []
@@ -69,7 +66,6 @@ services:
     - "dotnet"
     - "/app/bin/Debug/net8.0/PlayerService.Api.dll"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "playerservice.api:dev"
     ports: []
@@ -88,7 +84,6 @@ services:
     - "dotnet"
     - "/app/bin/Debug/net8.0/PlaylistService.Api.dll"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "playlistservice.api:dev"
     ports: []
@@ -108,7 +103,6 @@ services:
     - "dotnet"
     - "/app/bin/Debug/net8.0/SocialService.Api.dll"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "socialservice.api:dev"
     ports: []
