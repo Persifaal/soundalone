@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "SoundAlone.Contracts.SocialService.V1";
+
+package soundalone.social.v1;
+
+service SocialService {
+  rpc CreateProfile (CreateProfileRequest) returns (CreateProfileResponse);
+  rpc UpdateProfile (UpdateProfileRequest) returns (UpdateProfileResponse);
+}
+
+message CreateProfileRequest {
+  string user_account_id = 1;
+}
+
+message CreateProfileResponse {
+  string profile_id = 1;
+}
+
+message UpdateProfileRequest{
+  string display_name = 2;
+  string user_tag = 3;
+  string avatar_url = 4;
+  string banner_url = 5;
+  string bio = 6;
+}
+
+message UpdateProfileResponse {}

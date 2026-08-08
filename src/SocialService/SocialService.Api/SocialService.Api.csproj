@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.83.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.83.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.29">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SocialService.Application\SocialService.Application.csproj" />
     <ProjectReference Include="..\SocialService.Infrastructure\SocialService.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Shared\SoundAlone.Shared.Contracts\SoundAlone.Shared.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>

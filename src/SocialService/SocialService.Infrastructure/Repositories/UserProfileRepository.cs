@@ -34,14 +34,15 @@ public class UserProfileRepository : IUserProfileRepository
         return await _context.UserProfiles.ToListAsync();
     }
 
-    public async Task CreateUserProfile(UserProfile userProfile)
+    public async Task<Guid> CreateUserProfile(UserProfile userProfile)
     {
         if(userProfile == null)
             throw new ArgumentNullException(nameof(userProfile));
         
         await _context.AddAsync(userProfile);
+        return userProfile.Id;
     }
-
+    
     public async Task UpdateUserProfile(UserProfile userProfile)
     {
         if (userProfile == null || userProfile.Id == null)
@@ -61,5 +62,10 @@ public class UserProfileRepository : IUserProfileRepository
         
         _context.UserProfiles.Update(userToChange);
         await _context.SaveChangesAsync();
+    }
+
+    public Task<int> GetUserProfilesCount()
+    {
+        return _context.UserProfiles.CountAsync();
     }
 }

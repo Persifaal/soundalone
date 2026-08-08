@@ -35,11 +35,17 @@ public interface IUserProfileRepository
     /// Создать профиля пользователя
     /// </summary>
     /// <param name="userProfile">Данные пользователя</param>
-    public Task CreateUserProfile(UserProfile userProfile);
+    public Task<Guid> CreateUserProfile(UserProfile userProfile);
     
     /// <summary>
     /// Обновить данные профиля пользователя
     /// </summary>
     /// <param name="userProfile">Данные пользователя</param>
     public Task UpdateUserProfile(UserProfile userProfile);
+    
+    /// <summary>
+    /// Получить число пользователей с профилями в системе
+    /// </summary>
+    /// <returns></returns>
+    public Task<int> GetUserProfilesCount();
 }
