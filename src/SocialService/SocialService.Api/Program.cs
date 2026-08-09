@@ -15,13 +15,6 @@ builder.Services.AddGrpcReflection();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(8080, listenOptions =>
@@ -29,6 +22,16 @@ builder.WebHost.ConfigureKestrel(options =>
         listenOptions.Protocols = HttpProtocols.Http2;
     });
 });
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.MapGrpcReflectionService();
+}
+
 
 //app.UseHttpsRedirection();
 app.UseAuthorization();
