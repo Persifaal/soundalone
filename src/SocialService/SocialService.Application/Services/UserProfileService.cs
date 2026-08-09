@@ -12,9 +12,9 @@ public class UserProfileService : IUserProfileService
         _userProfileRepository = repository;
     }
     
-    public Task<List<UserProfile>> GetAllUserProfiles()
+    public Task<List<UserProfile>> GetAllUserProfiles(int page, int pageSize, string? searchString)
     {
-        return _userProfileRepository.GetUserProfiles();
+        return _userProfileRepository.GetUserProfiles(page, pageSize, searchString);
     }
 
     public Task<List<UserProfile>> GetAllUserProfilesByTag(string tag)
@@ -27,12 +27,18 @@ public class UserProfileService : IUserProfileService
         throw new NotImplementedException();
     }
 
-    public Task<Guid> CreateUserProfile(UserProfile userProfile)
+    public async Task<Guid> CreateUserProfile(UserProfile userProfile)
     {
-        userProfile.UserTag = "user_" 
-                              + _userProfileRepository.GetUserProfilesCount()
-                              + userProfile.Id.ToString().Take(5);
-        return _userProfileRepository.CreateUserProfile(userProfile);
+        int currentUserCount = await _userProfileRepository.GetUserProfilesCount();
+        var idPart = string.Concat(userProfile.Id.ToString().Take(5));
+        userProfile.UserTag = $"user_{currentUserCount}{idPart}";
+        if (userProfile.DisplayName == null)
+        {
+            userProfile.DisplayName = userProfile.UserTag;
+        }
+        
+        
+        return await _userProfileRepository.CreateUserProfile(userProfile);
     }
 
     public Task UpdateUserProfile(UserProfile userProfile)

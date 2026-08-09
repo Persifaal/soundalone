@@ -29,7 +29,7 @@ public interface IUserProfileRepository
     /// Получить список профилей пользователей
     /// </summary>
     /// <returns>Список пользователей</returns>
-    public Task<List<UserProfile>> GetUserProfiles();
+    public Task<List<UserProfile>> GetUserProfiles(int page, int pageSize, string? searchString);
     
     /// <summary>
     /// Создать профиля пользователя

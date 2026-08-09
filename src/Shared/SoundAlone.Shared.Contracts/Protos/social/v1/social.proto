@@ -7,6 +7,8 @@ package soundalone.social.v1;
 service SocialService {
   rpc CreateProfile (CreateProfileRequest) returns (CreateProfileResponse);
   rpc UpdateProfile (UpdateProfileRequest) returns (UpdateProfileResponse);
+  rpc GetProfile (GetProfileRequest) returns (GetProfileResponse);
+  rpc GetProfiles (GetProfilesRequest) returns (GetProfilesResponse);
 }
 
 message CreateProfileRequest {
@@ -18,11 +20,37 @@ message CreateProfileResponse {
 }
 
 message UpdateProfileRequest{
-  string display_name = 2;
-  string user_tag = 3;
-  string avatar_url = 4;
-  string banner_url = 5;
-  string bio = 6;
+  string display_name = 1;
+  string user_tag = 2;
+  string avatar_url = 3;
+  string banner_url = 4;
+  string bio = 5;
 }
 
 message UpdateProfileResponse {}
+
+message GetProfileRequest{
+  string user_id = 1;
+}
+
+message GetProfileResponse {
+    Profile profile = 1;
+}
+
+message GetProfilesRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string search_string = 3;
+}
+
+message GetProfilesResponse{
+    repeated Profile profiles = 1;
+}
+
+message Profile{
+  string display_name = 1;
+  string user_tag = 2;
+  string avatar_url = 3;
+  string banner_url = 4;
+  string bio = 5;
+}

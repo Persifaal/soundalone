@@ -11,14 +11,28 @@
             "id": "6daf3ac10ea3c4ae",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "kanban",
               "state": {
-                "file": "Плейлист.md",
-                "mode": "source",
-                "source": false
+                "file": "Untitled Kanban.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": []
+                }
               },
-              "icon": "lucide-file",
-              "title": "Плейлист"
+              "icon": "lucide-trello",
+              "title": "Untitled Kanban"
+            }
+          },
+          {
+            "id": "3f601d6abbff45d3",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Drawing 2026-08-09 14.58.25.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Drawing 2026-08-09 14.58.25.excalidraw"
             }
           },
           {
@@ -35,7 +49,8 @@
               "title": "Core"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -55,7 +70,9 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
               "title": "Файловый менеджер"
@@ -214,7 +231,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -226,11 +244,16 @@
       "command-palette:Открыть палитру команд": false,
       "bases:Создать новую базу": false,
       "juggl:Juggl global graph": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "obsidian-kanban:Create new board": false,
+      "obsidian-excalidraw-plugin:Создать новый чертеж": false
     }
   },
-  "active": "6daf3ac10ea3c4ae",
+  "active": "3f601d6abbff45d3",
   "lastOpenFiles": [
+    "Drawing 2026-08-09 14.58.25.excalidraw.md",
+    "Untitled Kanban.md",
+    "Плейлист.md",
     "Подписки.md",
     "Чат.md",
     "Отправка сообщений.md",
@@ -249,7 +272,6 @@
     "Базовый функционал.md",
     "Сервисы/Сервис модерации.md",
     "Аккаунт пользователя.md",
-    "Плейлист.md",
     "Сервисы/Сервис плейлистов.md",
     "создайте ссылку.md"
   ]

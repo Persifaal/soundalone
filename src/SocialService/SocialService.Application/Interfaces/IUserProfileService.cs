@@ -4,7 +4,7 @@ namespace SocialService.Application.Interfaces;
 
 public interface IUserProfileService
 {
-    public Task<List<UserProfile>> GetAllUserProfiles();
+    public Task<List<UserProfile>> GetAllUserProfiles(int page, int pageSize, string? searchString);
     
     public Task<List<UserProfile>> GetAllUserProfilesByTag(string tag);
     
