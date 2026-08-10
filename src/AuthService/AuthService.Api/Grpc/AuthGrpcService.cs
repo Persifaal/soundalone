@@ -7,10 +7,12 @@ namespace AuthService.Api.Grpc;
 public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServiceBase
 {
     private readonly IAuthService _authService;
+    private readonly IEmailConfirmationService _emailConfirmationService;
 
-    public AuthGrpcService(IAuthService authService)
+    public AuthGrpcService(IAuthService authService, IEmailConfirmationService emailConfirmationService)
     {
         _authService = authService;
+        _emailConfirmationService = emailConfirmationService;
     }
 
     public override async Task<RegisterResponse> Register(RegisterRequest request, ServerCallContext context)
@@ -24,6 +26,8 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
                 request.PhoneNumber,
                 request.UserAgent,
                 request.IpAddress);
+
+            await _emailConfirmationService.SendConfirmationCodeASync(tokens.UserId, tokens.Email, CancellationToken.None);
 
             return new RegisterResponse
             {
@@ -56,6 +60,11 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
                 request.UserAgent, 
                 request.IpAddress);
 
+            if (!tokens.IsEmailVerified) 
+            {
+                await _emailConfirmationService.SendConfirmationCodeASync(tokens.UserId, tokens.Email, CancellationToken.None);
+            }
+
             return new LoginResponse
             {
                 AccessToken = tokens.AccessToken,
@@ -70,6 +79,25 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
         catch (UnauthorizedAccessException ex)
         {
             throw new RpcException(new Status(StatusCode.Unauthenticated, ex.Message));
+        }
+        catch (Exception ex)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+        }
+    }
+
+    public override async Task<VerifyEmailResponse> Resend(VerifyEmailRequest request, ServerCallContext context)
+    {
+        try 
+        {
+            var userId = Guid.Parse(request.UserId);
+
+            await _emailConfirmationService.SendConfirmationCodeASync(userId, request.Email, CancellationToken.None);
+
+            return new VerifyEmailResponse
+            {
+                Success = true,
+            };
         }
         catch (Exception ex)
         {
