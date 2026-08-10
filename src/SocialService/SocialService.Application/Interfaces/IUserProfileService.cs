@@ -6,9 +6,7 @@ public interface IUserProfileService
 {
     public Task<List<UserProfile>> GetAllUserProfiles(int page, int pageSize, string? searchString);
     
-    public Task<List<UserProfile>> GetAllUserProfilesByTag(string tag);
-    
-    public Task<List<UserProfile>> GetAllUserProfilesByUser(string userId);
+    public Task<UserProfile?> GetUserProfileById(Guid id);
     
     public Task<Guid> CreateUserProfile(UserProfile userProfile);
     

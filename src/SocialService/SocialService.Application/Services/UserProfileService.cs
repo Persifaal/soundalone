@@ -17,14 +17,9 @@ public class UserProfileService : IUserProfileService
         return _userProfileRepository.GetUserProfiles(page, pageSize, searchString);
     }
 
-    public Task<List<UserProfile>> GetAllUserProfilesByTag(string tag)
+    public Task<UserProfile?> GetUserProfileById(Guid id)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<UserProfile>> GetAllUserProfilesByUser(string userId)
-    {
-        throw new NotImplementedException();
+        return _userProfileRepository.GetUserProfileById(id);
     }
 
     public async Task<Guid> CreateUserProfile(UserProfile userProfile)

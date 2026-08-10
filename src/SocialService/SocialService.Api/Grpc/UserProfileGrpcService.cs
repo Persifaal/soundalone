@@ -10,10 +10,12 @@ namespace SocialService.Api.Grpc;
 public class UserProfileGrpcService : SoundAlone.Contracts.SocialService.V1.SocialService.SocialServiceBase
 {
     private IUserProfileService _userProfileService;
+    private ILogger<UserProfileGrpcService> _logger;
 
-    public UserProfileGrpcService(IUserProfileService userProfileService)
+    public UserProfileGrpcService(IUserProfileService userProfileService, ILogger<UserProfileGrpcService> logger)
     {
         _userProfileService = userProfileService;
+        _logger = logger;
     }
 
     public override async Task<CreateProfileResponse> CreateProfile(CreateProfileRequest request, ServerCallContext context)
@@ -73,6 +75,34 @@ public class UserProfileGrpcService : SoundAlone.Contracts.SocialService.V1.Soci
         }
         catch (Exception e)
         {
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
+    }
+
+    public override async Task<GetProfileResponse> GetProfile(GetProfileRequest request, ServerCallContext context)
+    {
+        try
+        {
+            var profile = await _userProfileService.GetUserProfileById(Guid.Parse(request.UserId));
+            if(profile == null)
+                throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
+            var response = new GetProfileResponse
+            {
+                Profile =
+                {
+                    AvatarUrl = profile.AvatarUrl,
+                    BannerUrl = profile.BannerUrl,
+                    Bio = profile.Bio,
+                    DisplayName = profile.DisplayName,
+                    UserTag = profile.UserTag
+                }
+            };
+
+            return response;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message + "\n" + e.StackTrace);
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
