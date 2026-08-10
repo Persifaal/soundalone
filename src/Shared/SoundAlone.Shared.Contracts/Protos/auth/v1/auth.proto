@@ -9,6 +9,7 @@ service AuthService {
   rpc Login (LoginRequest) returns (LoginResponse);
   rpc Refresh (RefreshRequest) returns (LoginResponse);
   rpc Logout (LogoutRequest) returns (LogoutResponse);
+  rpc Resend (VerifyEmailRequest) returns (VerifyEmailResponse);
 }
 
 message RegisterRequest {
@@ -58,5 +59,15 @@ message LogoutRequest {
 }
 
 message LogoutResponse {
+  bool success = 1;
+}
+
+message VerifyEmailRequest {
+  string user_id = 1;
+  string email = 2;
+  string confirmation_code = 3;
+}
+
+message VerifyEmailResponse {
   bool success = 1;
 }
