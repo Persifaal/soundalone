@@ -81,3 +81,11 @@ footer{
   color: #61dafb;
   text-decoration: none;
 }
+
+.inverted{
+  filter: invert(100%);
+}
+
+.image-round{
+  border-radius: 100%;
+}
