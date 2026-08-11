@@ -4,13 +4,15 @@ import '../styles/header.css'
 import bellImage from '../Images/icons/bell.png';
 // @ts-ignore
 import settingsImage from '../Images/icons/free-icon-settings-126472.png';
+import searchImage from '../Images/icons/free-icon-magnifying-glass-25313.png';
+
 function HeaderLogged() {
     let loggedUser = {
         displayname: "Persifal",
         tag: "persifal_",
         avatar_url: require("../Images/avatar.jpg"),
     }
-    document.getElementsByClassName("")
+
     return (
       <header className="app-header">
           <div className="app-header-wrapper">
@@ -21,10 +23,11 @@ function HeaderLogged() {
                       </a>
                   </div>
               </div>
-              <div className="header-sections-wrap">
+              <div className="header-sections-wrap-first">
                   <div className="header-buttons">
-                      <a href="/search" className="header-button">Искать музыку</a>
+                      <a href="/search" className="header-button"><img className="header-icon inverted" src={searchImage} alt="search"/></a>
                       <a href="/community" className="header-button">Сообщество</a>
+                      <a href="/premium" className="header-button">Премиум</a>
                   </div>
               </div>
               <div className="header-sections-wrap">

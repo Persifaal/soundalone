@@ -15,12 +15,17 @@
 .app-header-wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.header-sections-wrap-first{
+    margin-right: auto;
+    margin-left: 2em;
 }
 
 .header-logo-wrap,
