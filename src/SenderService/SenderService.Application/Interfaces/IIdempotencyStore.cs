@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SenderService.Application.Interfaces
 {
-    internal interface IIdempotencyStore
+    public interface IIdempotencyStore
     {
+        Task<bool> ExistsAsync(string key, CancellationToken cancellationToken = default);
+        Task MarkAsProcessedAsync(string key, TimeSpan ttl, CancellationToken cancellationToken = default);
     }
 }

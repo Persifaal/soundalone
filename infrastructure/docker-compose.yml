@@ -38,6 +38,17 @@ services:
     networks:
       - soundalone-network
 
+  mailpit:
+      image: axllent/mailpit:latest
+      ports:
+        - "1025:1025"
+        - "8025:8025"
+      networks:
+        - soundalone-network
+      environment:
+        - MP_SMTP_AUTH_ACCEPT_ANY=1 
+        - MP_SMTP_AUTH_ALLOW_INSECURE=1
+
   minio:
     image: minio/minio:latest
     container_name: soundalone-minio
@@ -108,6 +119,20 @@ services:
       - soundalone-network
 
   # ================= API SERVICES =================
+
+  apigateway:
+      build:
+        context: ../src/ApiGateway
+        dockerfile: ApiGateway.Api/Dockerfile
+      container_name: soundalone-apigateway
+      profiles: ["apps"]
+      environment:
+        ASPNETCORE_ENVIRONMENT: Development
+      ports:
+        - "${API_PORT:-8087}:8080"
+
+      networks:
+        - soundalone-network
 
   auth-service:
     build:
@@ -201,6 +226,21 @@ services:
       Kafka__BootstrapServers: kafka:9092
     ports:
       - "${SOCIAL_PORT:-8086}:8080"
+    networks:
+      - soundalone-network
+
+  sender-service:
+    build:
+      context: ../src/SenderService
+      dockerfile: SernderService.Api/Dockerfile
+    container_name: soundalone-sender
+    profiles: ["apps"]
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Kafka__BootstrapServers: kafka:9092
+    ports:
+      - "${SENDER_PORT:-8088}:8080"
+
     networks:
       - soundalone-network
 

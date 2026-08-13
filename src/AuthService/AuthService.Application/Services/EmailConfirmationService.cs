@@ -61,7 +61,7 @@ namespace AuthService.Application.Services
                 IdempotencyKey: confirmation.CodeId.ToString(),
                 ToEmail: email,
                 Subject: "Email Confirmation Code",
-                TemplateId: "email_confirmation",
+                TemplateId: "auth.email_confirmation",
                 TemplateParams: new Dictionary<string, string>
                 {
                     ["code"] = code,

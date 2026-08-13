@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SenderService.Application\SenderService.Application.csproj" />
+    <ProjectReference Include="..\SenderService.Infrastructure\SenderService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

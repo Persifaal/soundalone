@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SenderService.Application.Model
 {
-    public class SmptOptions
+    public class SmtpOptions
     {
         public string Host { get; set; } = string.Empty;
         public int Port { get; set; } = 587;
-        public bool UseSsl { get; set; } = true;
+        public bool UseSsl { get; set; } = false;
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string FromEmail { get; set; } = string.Empty;
