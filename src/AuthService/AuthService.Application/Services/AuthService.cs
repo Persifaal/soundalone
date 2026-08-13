@@ -13,6 +13,7 @@ namespace AuthService.Application.Services
     {
         private readonly ILogger<AuthService> _logger;
         private readonly IUserAccountRepository _userAccountRepository;
+        private readonly IEmailConfirmationCodeStore _emailConfirmationCodeStore;
         private readonly IRedisSessionManager _redisSessionRepository;
         private readonly ISessionRepository _sessionRepository;
         private readonly IJwtTokenService _jwtTokenService;
@@ -21,6 +22,7 @@ namespace AuthService.Application.Services
         public AuthService(ILogger<AuthService> logger,
             IUserAccountRepository userAccountRepository,
             IRedisSessionManager redisSessionRepository,
+            IEmailConfirmationCodeStore emailConfirmationCodeStore,
             ISessionRepository sessionRepository,
             IJwtTokenService jwtTokenService,
             IPasswordHasher passwordHasher)
@@ -28,6 +30,7 @@ namespace AuthService.Application.Services
             _logger = logger;
             _userAccountRepository = userAccountRepository;
             _redisSessionRepository = redisSessionRepository;
+            _emailConfirmationCodeStore = emailConfirmationCodeStore;
             _sessionRepository = sessionRepository;
             _jwtTokenService = jwtTokenService;
             _passwordHasher = passwordHasher;
@@ -199,6 +202,48 @@ namespace AuthService.Application.Services
             var bytes = Encoding.UTF8.GetBytes(token);
             var hashBytes = System.Security.Cryptography.SHA256.HashData(bytes);
             return Convert.ToHexString(hashBytes).ToLowerInvariant();
+        }
+
+        public async Task ConfirmEmailAsync(string email, string code, CancellationToken cancellationToken = default)
+        {
+            var user = await _userAccountRepository.GetUserByEmail(email, cancellationToken);
+
+            if (user.EmailVerified == false) 
+            {
+                return;
+            }
+
+            var storedCode = await _emailConfirmationCodeStore.GetAsync(user.Id, cancellationToken);
+            if (storedCode == null)
+            {
+                throw new InvalidOperationException("Код подтверждения не найден или уже был использован");
+            }
+
+            if (storedCode.ExpiresAtUtc < DateTime.UtcNow)
+            {
+                await _emailConfirmationCodeStore.DeleteAsync(user.Id, cancellationToken);
+                throw new InvalidOperationException("Срок действия кода истек. Запросите новый.");
+            }
+
+            if (storedCode.Attempts >= storedCode.MaxAttempts)
+            {
+                await _emailConfirmationCodeStore.DeleteAsync(user.Id, cancellationToken);
+                throw new InvalidOperationException("Превышено максимальное количество попыток. Запросите новый код.");
+            }
+
+            var verificationResult = _passwordHasher.Verify(code, storedCode.HashCode);
+
+            if (!verificationResult)
+            {
+                storedCode.Attempts++;
+                await _emailConfirmationCodeStore.SaveAsync(user.Id, storedCode, cancellationToken);
+
+                throw new InvalidOperationException("Неверный код подтверждения");
+            }
+
+            await _userAccountRepository.SetVerificationStatusAsync(user.Id, cancellationToken);
+
+            await _emailConfirmationCodeStore.DeleteAsync(user.Id, cancellationToken);
         }
     }
 }

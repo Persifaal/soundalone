@@ -50,9 +50,9 @@ namespace AuthService.Application.Services
                 Attempts = 0,
                 MaxAttempts = 3,
                 CreatedAtUtc = utcNow,
-                ExpiresAtUtc = utcNow.AddSeconds(60),
+                ExpiresAtUtc = utcNow.AddMinutes(2),
             };
-
+            
             await _emailConfirmationCode.SaveAsync(userId, confirmation, cancellationToken);
 
             var command = new EmailSendCommand(

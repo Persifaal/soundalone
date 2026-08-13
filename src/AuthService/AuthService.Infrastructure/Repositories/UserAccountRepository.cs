@@ -49,5 +49,19 @@ namespace AuthService.Infrastructure.Repositories
         {
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<bool> SetVerificationStatusAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            var user = await GetUserById(userId, cancellationToken);
+
+            if (user == null)
+                return false;
+
+            user.EmailVerified = true;
+
+            _context.UserAccounts.Update(user);
+
+            return true;
+        }
     }
 }

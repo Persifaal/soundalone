@@ -54,7 +54,6 @@ namespace SenderService.Infrastructure.Kafka
                 {
                     var consumeResult = _consumer.Consume(stoppingToken);
 
-                    // ✅ ИСПРАВЛЕНИЕ 1: Проверяем, что именно Message не null, а не весь consumeResult
                     if (consumeResult?.Message is null)
                     {
                         continue;
@@ -82,19 +81,13 @@ namespace SenderService.Infrastructure.Kafka
                         _logger.LogInformation("Processing email for: {Email}...", command.ToEmail);
 
                         await _emailProcessor.ProcessAsync(command, stoppingToken);
-
-                        // Коммитим только при успехе
                         _consumer.Commit(consumeResult);
-                        _logger.LogInformation("✅ Email sent successfully. MessageId: {MessageId}", messageId);
+                        _logger.LogInformation(" Email sent successfully. MessageId: {MessageId}", messageId);
                     }
                     catch (Exception ex)
                     {
-                        // ✅ ИСПРАВЛЕНИЕ 2: Передаем сам объект 'ex' первым аргументом, чтобы увидеть полный Stack Trace в логах
                         _logger.LogError(ex, "💥 Unexpected Error processing message. MessageId: {MessageId}. Error: {ErrorMessage}", messageId, ex.Message);
 
-                        // ✅ ИСПРАВЛЕНИЕ 3: ОБЯЗАТЕЛЬНО коммитим offset даже при ошибке!
-                        // Иначе Kafka будет бесконечно отдавать нам это же сообщение, вызывая бесконечный цикл ошибок.
-                        // (В реальном продакшене здесь сообщение отправляют в Dead Letter Queue).
                         _consumer.Commit(consumeResult);
                     }
                 }

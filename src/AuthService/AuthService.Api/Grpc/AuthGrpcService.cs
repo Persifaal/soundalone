@@ -27,7 +27,7 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
                 request.UserAgent,
                 request.IpAddress);
 
-            await _emailConfirmationService.SendConfirmationCodeASync(tokens.UserId, tokens.Email, CancellationToken.None);
+            await _emailConfirmationService.SendConfirmationCodeASync(tokens.UserId, tokens.Email, context.CancellationToken);
 
             return new RegisterResponse
             {
@@ -62,7 +62,7 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
 
             if (!tokens.IsEmailVerified) 
             {
-                await _emailConfirmationService.SendConfirmationCodeASync(tokens.UserId, tokens.Email, CancellationToken.None);
+                await _emailConfirmationService.SendConfirmationCodeASync(tokens.UserId, tokens.Email, context.CancellationToken);
             }
 
             return new LoginResponse
@@ -86,15 +86,15 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
         }
     }
 
-    public override async Task<VerifyEmailResponse> Resend(VerifyEmailRequest request, ServerCallContext context)
+    public override async Task<EmailResponse> Resend(EmailRequest request, ServerCallContext context)
     {
         try 
         {
             var userId = Guid.Parse(request.UserId);
 
-            await _emailConfirmationService.SendConfirmationCodeASync(userId, request.Email, CancellationToken.None);
+            await _emailConfirmationService.SendConfirmationCodeASync(userId, request.Email,context.CancellationToken);
 
-            return new VerifyEmailResponse
+            return new EmailResponse
             {
                 Success = true,
             };
@@ -102,6 +102,31 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
         catch (Exception ex)
         {
             throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+        }
+    }
+
+    public override async Task<ConfirmEmailResponse> ConfirmEmail(ConfirmEmailRequest request, ServerCallContext context)
+    {
+        try 
+        {
+            await _authService.ConfirmEmailAsync(request.Email, request.Code, context.CancellationToken);
+
+            return new ConfirmEmailResponse
+            {
+                Succes = true,
+            };
+        }
+        catch (ArgumentException ex) 
+        { 
+            throw new RpcException(new Status(StatusCode.NotFound, ex.Message));
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new RpcException(new Status(StatusCode.InvalidArgument, ex.Message));
+        }
+        catch (Exception ex)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, "Внутренняя ошибка сервера"));
         }
     }
 
