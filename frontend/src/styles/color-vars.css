@@ -13,14 +13,26 @@
     --background-color-default: #080D15;
     --accent-header-bg: #151a24;
     --accent-header-bg-transparent80: rgba(21, 26, 36, 0.8);
+
     --accent-cards-bg: #0A0E14;
     --accent-cards-bg-transparent-30: rgba(10, 14, 20, 0.3);
+
+    --default-panel-color-bg: #141a25;
+    --accent-panel-color-bg: #1B1D25;
+
     --accent-button-bg-default: #1D283F;
     --accent-button-bg-selected: #171f32;
     --accent-button-bg-highlight: #25324c;
     --accent-button-bg-blocked: #1f222e;
+
     --accent-checkbox-color: #1D283F;
     --accent-checkbox-color-checked: #50679a;
+
     --accent-border-color: #50526E;
+
     --text-danger-color: #FF6565;
+    --text-success-color: #ccffb4;
+    --text-warning-color: #ffefbe;
+
+    --player-progress-bar-bg-default: #424a61;
 }

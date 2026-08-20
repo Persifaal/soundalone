@@ -1,0 +1,425 @@
+﻿.player-block {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+
+    height: 7.5em;
+    width: 100%;
+
+    box-sizing: border-box;
+
+    gap: 10px;
+    padding: 10px;
+}
+
+.player-block > div {
+    height: 100%;
+    width: auto;
+
+    box-sizing: border-box;
+
+    border-radius: 0.5em;
+
+    box-shadow:
+            0 0 5px color-mix(
+                    in srgb,
+                    color-mix(in srgb, var(--cover-color-1)60%, var(--cover-color-3) 100%) 50%,
+                    transparent
+            ),
+            0 0 7px color-mix(
+                    in srgb,
+                    color-mix(in srgb, var(--cover-color-2)60%, white) 20%,
+                    transparent
+            ),
+            0 0 10px color-mix(
+                    in srgb,
+                    color-mix(in srgb, var(--cover-color-3)60%, white) 10%,
+                    transparent
+            );
+
+    background-color: #1b2030;
+}
+
+.current-playing-info {
+    flex: 1 1 0;
+
+    display: flex;
+    align-items: stretch;
+
+    min-width: 0;
+    min-height: 0;
+
+    padding: 0.5em;
+
+    box-sizing: border-box;
+}
+
+.player-current-cover-container {
+    flex: 0 0 auto;
+
+    box-sizing: border-box;
+    border-radius: 0.5em;
+
+    overflow: hidden;
+
+}
+
+.player-cover {
+    display: block;
+
+    height: 100%;
+    max-width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    border-radius: 0.5em;
+}
+
+.current-playing-info-container {
+    flex: 1 1 0;
+
+    min-width: 0;
+    min-height: 0;
+
+    padding: 0 1em;
+
+    box-sizing: border-box;
+
+    font-size: 0.9em;
+}
+
+.current-playing-text-block {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    gap: 0.5em;
+}
+
+.current-playing-name {
+    color: color-mix(in srgb, var(--cover-color-3) 30%, var(--text-color-default) 100%);
+}
+
+.current-playing-name-container {
+    flex: 1 1 0;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    align-items: flex-end;
+
+    overflow: hidden;
+}
+
+.current-playing-text-break-container {
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    height: 1px;
+    min-height: 1px;
+}
+
+.current-playing-text-block hr {
+    display: block;
+
+    flex: 0 0 auto;
+
+    width: 100%;
+    height: 1px;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+
+    background-color: currentColor;
+}
+
+.current-playing-authors-container {
+    flex: 1 1 0;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    align-items: flex-start;
+
+    overflow: hidden;
+}
+
+
+.current-playing-authors-container > a {
+    color: var(--text-color-locked);
+}
+
+.playing-controls {
+    display: flex;
+    flex-direction: column;
+
+    flex: 2 1 0;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.5em 2em;
+
+    box-sizing: border-box;
+
+    min-width: 0;
+}
+
+.playing-controls > div {
+    display: flex;
+
+    width: 100%;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 0.5em;
+
+    min-width: 0;
+}
+
+.controls-buttons-wrapper {
+    flex: 2;
+
+    min-width: 0;
+}
+
+.controls-progress-bar-wrapper {
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    min-width: 0;
+
+    gap: 0.5em;
+}
+
+.controls-progress-bar-wrapper p {
+    margin: 0;
+    padding: 0;
+
+    flex: 0 0 auto;
+}
+
+.progress-container {
+    position: relative;
+
+    flex: 1 1 auto;
+
+    width: 100%;
+    height: 0.75em;
+
+    min-width: 0;
+
+    --progress: 35%;
+
+    border-radius: 2em;
+}
+
+.progress-container::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 2em;
+
+    background: var(--player-progress-bar-bg-default);
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+.progress-container::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: var(--progress);
+    height: 100%;
+
+    border-radius: 2em;
+
+    background: linear-gradient(
+            90deg,
+            color-mix(in srgb, var(--cover-color-1) 80%, var(--cover-color-2) 100%),
+            color-mix(in srgb, var(--cover-color-2) 75%, white),
+            color-mix(in srgb, var(--cover-color-3) 75%, white)
+    );
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+.progress-bar {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    -webkit-appearance: none;
+    appearance: none;
+
+    background: transparent;
+
+    border: none;
+
+    cursor: pointer;
+
+    z-index: 2;
+}
+
+.progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 1em;
+    height: 1em;
+
+    margin: 0;
+
+    border: 2px solid #f2f5ff;
+    border-radius: 50%;
+
+    background: var(--cover-color-2);
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease;
+}
+
+.progress-bar::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.progress-bar::-webkit-slider-thumb:active {
+    transform: scale(1.1);
+}
+
+.progress-bar::-moz-range-thumb {
+    width: 1em;
+    height: 1em;
+
+    border: 2px solid #f2f5ff;
+    border-radius: 50%;
+
+    background: var(--cover-color-2);
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease;
+}
+
+.progress-bar::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+.progress-bar::-moz-range-thumb:active {
+    transform: scale(1.1);
+}
+
+
+
+.progress-bar::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+    border: none;
+}
+
+.progress-bar::-moz-range-track {
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+    border: none;
+}
+
+.player-control-button {
+    background: none;
+    border: none;
+
+    padding: 0.5em;
+
+    box-sizing: border-box;
+
+    cursor: pointer;
+}
+
+
+.player-previous-button {
+    scale: -1 1;
+}
+
+.player-control-button > img {
+    display: block;
+
+    aspect-ratio: 1 / 1;
+
+    height: 2em;
+
+    color: var(--text-color-default);
+
+    filter: invert(75%);
+
+    transition:
+            filter 0.2s ease,
+            transform 0.2s ease;
+}
+
+.player-control-button > img:hover {
+    filter: invert(100%);
+}
+
+.player-control-button > img:active {
+    filter: invert(80%);
+}
+
+.player-options {
+    flex: 1 1 0;
+
+    min-width: 0;
+}
+
+.progress-bar-text {
+    white-space: nowrap;
+
+    font-size: 0.8em;
+}

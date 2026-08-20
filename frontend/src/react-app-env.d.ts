@@ -1,11 +1,3 @@
-/* eslint-disable react/no-typos */
-import 'react';
-
-declare module 'react' {
-    interface CSSProperties {
-        [key: `--${string}`]: string | number;
-    }
-}
 declare module '*.png' {
     const value: string;
     export default value;
@@ -34,13 +26,4 @@ declare module '*.svg' {
 declare module '*.webp' {
     const value: string;
     export default value;
-}
-
-// Объявления для CSS-переменных в inline-стилях
-import 'react';
-
-declare module 'react' {
-    interface CSSProperties {
-        [key: `--${string}`]: string | number;
-    }
 }
