@@ -9,7 +9,7 @@ public interface IUserProfileRepository
     /// </summary>
     /// <param name="userId">ID</param>
     /// <returns>Пользователь</returns>
-    public Task<UserProfile> GetUserProfileById(Guid userId);
+    public Task<UserProfile?> GetUserProfileById(Guid userId);
     
     /// <summary>
     /// Получить профиль пользователя по тегу
@@ -29,7 +29,7 @@ public interface IUserProfileRepository
     /// Получить список профилей пользователей
     /// </summary>
     /// <returns>Список пользователей</returns>
-    public Task<List<UserProfile>> GetUserProfiles();
+    public Task<List<UserProfile>> GetUserProfiles(int page, int pageSize, string? searchString);
     
     /// <summary>
     /// Создать профиля пользователя

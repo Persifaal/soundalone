@@ -14,7 +14,7 @@ public class UserProfileRepository : IUserProfileRepository
         _context = context;
     }
     
-    public async Task<UserProfile> GetUserProfileById(Guid userId)
+    public async Task<UserProfile?> GetUserProfileById(Guid userId)
     {
         return await _context.UserProfiles.FirstAsync(x => x.Id == userId);
     }
@@ -29,9 +29,16 @@ public class UserProfileRepository : IUserProfileRepository
         return await _context.UserProfiles.Where(x => x.UserTag.StartsWith(tag)).ToListAsync();
     }
     
-    public async Task<List<UserProfile>> GetUserProfiles()
+    public async Task<List<UserProfile>> GetUserProfiles(int page, int pageSize, string? searchString)
     {
-        return await _context.UserProfiles.ToListAsync();
+        if (searchString != null)
+             return await _context.UserProfiles.Where(x => 
+                x.UserTag.StartsWith(searchString)
+                || x.DisplayName.StartsWith(searchString))
+                 .Skip((page - 1) * pageSize).Take(pageSize)
+                 .ToListAsync();
+        
+        return await _context.UserProfiles.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 
     public async Task<Guid> CreateUserProfile(UserProfile userProfile)
@@ -40,6 +47,8 @@ public class UserProfileRepository : IUserProfileRepository
             throw new ArgumentNullException(nameof(userProfile));
         
         await _context.AddAsync(userProfile);
+        await _context.SaveChangesAsync();
+        
         return userProfile.Id;
     }
     
