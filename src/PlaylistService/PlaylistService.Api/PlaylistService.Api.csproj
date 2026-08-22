@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.83.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.83.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="8.0.29" />
+    <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.8.29" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.29">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
