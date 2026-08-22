@@ -4,11 +4,39 @@ option csharp_namespace = "SoundAlone.Contracts.SocialService.V1";
 
 package soundalone.social.v1;
 
+import "google/api/annotations.proto";
+
 service SocialService {
-  rpc CreateProfile (CreateProfileRequest) returns (CreateProfileResponse);
-  rpc UpdateProfile (UpdateProfileRequest) returns (UpdateProfileResponse);
-  rpc GetProfile (GetProfileRequest) returns (GetProfileResponse);
-  rpc GetProfiles (GetProfilesRequest) returns (GetProfilesResponse);
+
+  rpc CreateProfile (CreateProfileRequest)
+      returns (CreateProfileResponse) {
+    option (google.api.http) = {
+      post: "/api/social/profiles"
+      body: "*"
+    };
+  }
+
+  rpc UpdateProfile (UpdateProfileRequest)
+      returns (UpdateProfileResponse) {
+    option (google.api.http) = {
+      put: "/api/social/profiles/{user_id}"
+      body: "*"
+    };
+  }
+
+  rpc GetProfile (GetProfileRequest)
+      returns (GetProfileResponse) {
+    option (google.api.http) = {
+      get: "/api/social/profiles/{user_id}"
+    };
+  }
+
+  rpc GetProfiles (GetProfilesRequest)
+      returns (GetProfilesResponse) {
+    option (google.api.http) = {
+      get: "/api/social/profiles"
+    };
+  }
 }
 
 message CreateProfileRequest {
@@ -19,22 +47,23 @@ message CreateProfileResponse {
   string profile_id = 1;
 }
 
-message UpdateProfileRequest{
-  string display_name = 1;
-  string user_tag = 2;
-  string avatar_url = 3;
-  string banner_url = 4;
-  string bio = 5;
+message UpdateProfileRequest {
+  string user_id = 1;
+  string display_name = 2;
+  string user_tag = 3;
+  string avatar_url = 4;
+  string banner_url = 5;
+  string bio = 6;
 }
 
 message UpdateProfileResponse {}
 
-message GetProfileRequest{
+message GetProfileRequest {
   string user_id = 1;
 }
 
 message GetProfileResponse {
-    Profile profile = 1;
+  Profile profile = 1;
 }
 
 message GetProfilesRequest {
@@ -43,11 +72,11 @@ message GetProfilesRequest {
   string search_string = 3;
 }
 
-message GetProfilesResponse{
-    repeated Profile profiles = 1;
+message GetProfilesResponse {
+  repeated Profile profiles = 1;
 }
 
-message Profile{
+message Profile {
   string display_name = 1;
   string user_tag = 2;
   string avatar_url = 3;

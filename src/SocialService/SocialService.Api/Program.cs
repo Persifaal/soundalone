@@ -5,6 +5,14 @@ using SocialService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddGrpcClient<UserProfileGrpcService>(options =>
+{
+    options.Address = new Uri(
+        builder.Configuration["Grpc:SocialService"]!
+    );
+});
+
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
