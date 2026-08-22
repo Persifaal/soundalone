@@ -4,13 +4,56 @@ option csharp_namespace = "SoundAlone.Contracts.Auth.V1";
 
 package soundalone.auth.v1;
 
+import "google/api/annotations.proto";
+
 service AuthService {
-  rpc Register (RegisterRequest) returns (RegisterResponse);
-  rpc Login (LoginRequest) returns (LoginResponse);
-  rpc Refresh (RefreshRequest) returns (LoginResponse);
-  rpc Logout (LogoutRequest) returns (LogoutResponse);
-  rpc Resend (EmailRequest) returns (EmailResponse);
-  rpc ConfirmEmail(ConfirmEmailRequest) returns (ConfirmEmailResponse);
+  rpc Register (RegisterRequest) 
+      returns (RegisterResponse){
+    option (google.api.http) = {
+      post: "/api/auth/register"
+      body: "*"
+    };
+  };
+  
+  rpc Login (LoginRequest) 
+      returns (LoginResponse){
+    option (google.api.http) = {
+      post: "/api/auth/login"
+      body: "*"
+    };
+  };
+  
+  rpc Refresh (RefreshRequest) 
+      returns (LoginResponse){
+    option (google.api.http) = {
+      post: "/api/auth/refresh"
+      body: "*"
+    };
+  };
+  
+  rpc Logout (LogoutRequest) 
+      returns (LogoutResponse){
+    option (google.api.http) = {
+      post: "/api/auth/logout"
+      body: "*"
+    };
+  };
+  
+  rpc Resend (EmailRequest)
+      returns (EmailResponse){
+    option (google.api.http) = {
+      post: "/api/auth/resend"
+      body: "*"
+    };
+  };
+  
+  rpc ConfirmEmail(ConfirmEmailRequest) 
+      returns (ConfirmEmailResponse){
+    option (google.api.http) = {
+      post: "/api/auth/confirm"
+      body: "*"
+    };
+  };
 }
 
 message RegisterRequest {

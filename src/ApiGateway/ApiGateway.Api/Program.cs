@@ -7,6 +7,19 @@ namespace ApiGateway.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactFrontend", policy =>
+                {
+                    policy.WithOrigins(
+                            "http://localhost:5173"
+                        )
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials(); // Разрешает передачу куки и заголовков авторизации
+                });
+            });
+            
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -16,6 +29,8 @@ namespace ApiGateway.Api
 
             var app = builder.Build();
 
+            app.UseCors("AllowReactFrontend");
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

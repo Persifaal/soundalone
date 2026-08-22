@@ -220,7 +220,7 @@ function Player(props: any) {
 
 
             <div className="player-options">
-
+                options
             </div>
 
         </div>

@@ -5,14 +5,24 @@
   src: url("../Fonts/KoHo-Regular.ttf");
 }
 
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 .display-card {
   aspect-ratio: 16 / 9;
+  width: 100%;
   overflow: hidden;
   position: relative;
   background: linear-gradient(45deg, #090a0d, #292D3B);
   border-radius: 30px;
+  max-width: 1800px;
 }
+
 .card-wrapper{
   position: absolute;
   padding: 20px;
