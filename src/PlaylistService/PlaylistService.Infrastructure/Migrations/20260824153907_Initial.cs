@@ -11,8 +11,12 @@ namespace PlaylistService.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "playlists_schema");
+
             migrationBuilder.CreateTable(
                 name: "playlists",
+                schema: "playlists_schema",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -31,6 +35,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "song_text",
+                schema: "playlists_schema",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -46,6 +51,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "SongAuthors",
+                schema: "playlists_schema",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -59,6 +65,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "playlist_authors",
+                schema: "playlists_schema",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -71,6 +78,7 @@ namespace PlaylistService.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_playlist_authors_playlists_PlaylistId",
                         column: x => x.PlaylistId,
+                        principalSchema: "playlists_schema",
                         principalTable: "playlists",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -78,6 +86,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "song",
+                schema: "playlists_schema",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -85,7 +94,9 @@ namespace PlaylistService.Infrastructure.Migrations
                     OriginalAlbumId = table.Column<Guid>(type: "uuid", nullable: false),
                     published_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     @explicit = table.Column<bool>(name: "explicit", type: "boolean", nullable: false),
-                    url = table.Column<string>(type: "text", nullable: false)
+                    url = table.Column<string>(type: "text", nullable: false),
+                    cover_url = table.Column<string>(type: "text", nullable: false),
+                    duration = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,6 +104,7 @@ namespace PlaylistService.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_song_playlists_OriginalAlbumId",
                         column: x => x.OriginalAlbumId,
+                        principalSchema: "playlists_schema",
                         principalTable: "playlists",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -100,11 +112,13 @@ namespace PlaylistService.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_playlist_authors_PlaylistId",
+                schema: "playlists_schema",
                 table: "playlist_authors",
                 column: "PlaylistId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_song_OriginalAlbumId",
+                schema: "playlists_schema",
                 table: "song",
                 column: "OriginalAlbumId");
         }
@@ -113,19 +127,24 @@ namespace PlaylistService.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "playlist_authors");
+                name: "playlist_authors",
+                schema: "playlists_schema");
 
             migrationBuilder.DropTable(
-                name: "song");
+                name: "song",
+                schema: "playlists_schema");
 
             migrationBuilder.DropTable(
-                name: "song_text");
+                name: "song_text",
+                schema: "playlists_schema");
 
             migrationBuilder.DropTable(
-                name: "SongAuthors");
+                name: "SongAuthors",
+                schema: "playlists_schema");
 
             migrationBuilder.DropTable(
-                name: "playlists");
+                name: "playlists",
+                schema: "playlists_schema");
         }
     }
 }

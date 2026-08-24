@@ -5,7 +5,7 @@
   src: url("../Fonts/KoHo-Regular.ttf");
 }
 
-h1{
+h1, h2, h3, h4, h5, h6 {
   font-family: KoHo, sans-serif;
   font-weight: 400;
   color: var(--text-color-default);
@@ -44,6 +44,7 @@ main {
   flex-direction: column;
   background-color: var(--background-color-default);
   padding: 20px;
+  min-height:85vh;
 }
 
 footer{

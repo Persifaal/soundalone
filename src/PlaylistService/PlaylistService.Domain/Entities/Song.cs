@@ -29,4 +29,12 @@ public class Song
     [Required]
     [Column("url")]
     public required string Link { get; set; }
+    
+    [Required]
+    [Column("cover_url")]
+    public required string CoverUrl { get; set; }
+    
+    [Required]
+    [Column("duration")]
+    public double Duration { get; set; }
 }
