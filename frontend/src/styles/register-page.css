@@ -16,6 +16,7 @@ input{
     border-radius: 30px;
     padding: 20px;
     font-size: 24px;
+    height: 100%;
 
 }
 
@@ -35,6 +36,14 @@ input{
 .register-section h1{
     color: var(--text-color-highlight);
     font-size: 2em;
+}
+
+.register-section h4{
+    color: var(--text-color-highlight);
+    font-size: 1em;
+    align-self: center;
+    font-weight: normal;
+    margin: 0.5em 0;
 }
 
 .form-wrapper{

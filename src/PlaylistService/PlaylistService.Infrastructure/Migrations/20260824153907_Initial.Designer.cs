@@ -12,7 +12,7 @@ using PlaylistService.Infrastructure.Persistence;
 namespace PlaylistService.Infrastructure.Migrations
 {
     [DbContext(typeof(PlaylistDbContext))]
-    [Migration("20260731114547_Initial")]
+    [Migration("20260824153907_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,6 +20,7 @@ namespace PlaylistService.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("playlists_schema")
                 .HasAnnotation("ProductVersion", "8.0.29")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -63,7 +64,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("playlists");
+                    b.ToTable("playlists", "playlists_schema");
                 });
 
             modelBuilder.Entity("PlaylistService.Domain.Entities.PlaylistAuthor", b =>
@@ -84,7 +85,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
                     b.HasIndex("PlaylistId");
 
-                    b.ToTable("playlist_authors");
+                    b.ToTable("playlist_authors", "playlists_schema");
                 });
 
             modelBuilder.Entity("PlaylistService.Domain.Entities.Song", b =>
@@ -93,6 +94,15 @@ namespace PlaylistService.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<string>("CoverUrl")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("cover_url");
+
+                    b.Property<double>("Duration")
+                        .HasColumnType("double precision")
+                        .HasColumnName("duration");
 
                     b.Property<bool>("Explicit")
                         .HasColumnType("boolean")
@@ -120,7 +130,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
                     b.HasIndex("OriginalAlbumId");
 
-                    b.ToTable("song");
+                    b.ToTable("song", "playlists_schema");
                 });
 
             modelBuilder.Entity("PlaylistService.Domain.Entities.SongAuthor", b =>
@@ -140,7 +150,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SongAuthors");
+                    b.ToTable("SongAuthors", "playlists_schema");
                 });
 
             modelBuilder.Entity("PlaylistService.Domain.Entities.SongText", b =>
@@ -170,7 +180,7 @@ namespace PlaylistService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("song_text");
+                    b.ToTable("song_text", "playlists_schema");
                 });
 
             modelBuilder.Entity("PlaylistService.Domain.Entities.PlaylistAuthor", b =>

@@ -19,6 +19,8 @@
 
     --default-panel-color-bg: #141a25;
     --accent-panel-color-bg: #1B1D25;
+    --accent-panel-color-highlight: #272b33;
+    --accent-panel-color-darkner: #171a20;
 
     --accent-button-bg-default: #1D283F;
     --accent-button-bg-selected: #171f32;
@@ -35,4 +37,7 @@
     --text-warning-color: #ffefbe;
 
     --player-progress-bar-bg-default: #424a61;
+
+    --user-info-block-bg-default: #141a25;
+    --user-info-block-bg-blocks: #1C1E27;
 }

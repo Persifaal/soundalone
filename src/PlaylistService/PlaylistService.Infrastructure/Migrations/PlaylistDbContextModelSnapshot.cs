@@ -92,6 +92,15 @@ namespace PlaylistService.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("CoverUrl")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("cover_url");
+
+                    b.Property<double>("Duration")
+                        .HasColumnType("double precision")
+                        .HasColumnName("duration");
+
                     b.Property<bool>("Explicit")
                         .HasColumnType("boolean")
                         .HasColumnName("explicit");
