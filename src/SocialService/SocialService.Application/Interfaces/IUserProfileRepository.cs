@@ -48,4 +48,11 @@ public interface IUserProfileRepository
     /// </summary>
     /// <returns></returns>
     public Task<int> GetUserProfilesCount();
+    
+    /// <summary>
+    /// Отправляет айди профиля по айди аккаунта
+    /// </summary>
+    /// <param name="accountId">Аккаунт</param>
+    /// <returns>Айди профиля</returns>
+    public Task<UserProfile> GetUserByAccountId(Guid accountId);
 }

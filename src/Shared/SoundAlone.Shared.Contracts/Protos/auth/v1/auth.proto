@@ -54,6 +54,13 @@ service AuthService {
       body: "*"
     };
   };
+  
+  rpc Me(MeRequest)
+      returns(MeResponse){
+    option(google.api.http) = {
+      get: "/api/auth/me"
+    };
+  };
 }
 
 message RegisterRequest {
@@ -122,4 +129,10 @@ message ConfirmEmailRequest{
 
 message ConfirmEmailResponse{
 	bool succes = 1;
+}
+
+message MeRequest{}
+
+message MeResponse{
+  string UserId = 1;
 }

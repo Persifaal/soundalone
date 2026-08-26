@@ -172,4 +172,25 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
             throw new RpcException(new Status(StatusCode.Internal, ex.Message));
         }
     }
+
+    public override async Task<MeResponse> Me(MeRequest request, ServerCallContext context)
+    {
+        try
+        {
+            var token = context.RequestHeaders.GetValue("Authorization");
+            
+            if(token == null)
+                throw new RpcException(new Status(StatusCode.Unauthenticated, string.Empty));
+            
+            Guid? id = (await _authService.MeAsync(token)).UserId;
+            return new MeResponse
+            {
+                UserId = id.ToString()
+            };
+        }
+        catch (Exception ex)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+        }
+    }  
 }

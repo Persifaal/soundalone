@@ -63,6 +63,10 @@ namespace AuthService.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at");
 
+                    b.Property<Guid?>("UserProfileId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_profile_id");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(20)

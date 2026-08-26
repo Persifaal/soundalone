@@ -43,4 +43,7 @@ public class UserAccount
 
     [Column("deleted_at")]
     public DateTime? DeletedAt { get; set; }
+    
+    [Column ("user_profile_id")]
+    public Guid? UserProfileId { get; set; }
 }
