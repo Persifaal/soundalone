@@ -106,4 +106,25 @@ public class UserProfileGrpcService : SoundAlone.Contracts.SocialService.V1.Soci
             throw new RpcException(new Status(StatusCode.Internal, e.Message));
         }
     }
+
+    public override async Task<Profile> GetMyProfile(GetMyProfileRequest request, ServerCallContext context)
+    {
+        try
+        {
+            UserProfile myProfile = await _userProfileService.GetMe(Guid.Parse(request.AccountId));
+            return new Profile()
+            {
+                DisplayName = myProfile.DisplayName ?? string.Empty,
+                UserTag = myProfile.UserTag ?? string.Empty,
+                AvatarUrl = myProfile.AvatarUrl,
+                BannerUrl = myProfile.BannerUrl,
+                Bio = myProfile.Bio
+            };
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message + "\n" + e.StackTrace);
+            throw new RpcException(new Status(StatusCode.Internal, e.Message));
+        }
+    }
 }

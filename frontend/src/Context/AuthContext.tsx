@@ -63,7 +63,7 @@ export function AuthProvider({
                     method: "GET",
 
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: token
                     }
                 }
             );

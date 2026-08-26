@@ -77,4 +77,9 @@ public class UserProfileRepository : IUserProfileRepository
     {
         return _context.UserProfiles.CountAsync();
     }
+
+    public async Task<UserProfile> GetUserByAccountId(Guid accountId)
+    {
+        return await _context.UserProfiles.Where(x => x.RelatedAccount == accountId).FirstAsync();
+    }
 }

@@ -157,7 +157,7 @@ function PlaylistCardComponent(card: PlaylistCard) {
 
 
 function Main() {
-    const isLoggedIn = true; //useAuth();
+    const isLoggedIn = useAuth();
 
     return (
         <div className="App">

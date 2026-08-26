@@ -71,6 +71,16 @@ namespace AuthService.Application.Services
             }
         }
 
+        public Task<UserSession> MeAsync(string refreshToken)
+        {
+            if (refreshToken == null)
+            {
+                throw new ArgumentNullException(nameof(refreshToken));
+            }
+
+            return _sessionRepository.GetByRefreshTokenHashAsync(refreshToken, new CancellationToken());
+        }
+
         public async Task<AuthResponseDto> RefreshTokenAsync(string refreshToken, string? userAgent, string? ipAddress)
         {
             var hashedRefreshToken = TokenHash(refreshToken);

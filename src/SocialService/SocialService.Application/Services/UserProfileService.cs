@@ -45,4 +45,9 @@ public class UserProfileService : IUserProfileService
     {
         throw new NotImplementedException();
     }
+
+    public async Task<UserProfile> GetMe(Guid id)
+    {
+        return await _userProfileRepository.GetUserByAccountId(id);
+    }
 }

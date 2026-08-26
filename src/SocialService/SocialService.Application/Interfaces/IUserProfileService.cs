@@ -14,5 +14,5 @@ public interface IUserProfileService
     
     public Task DeleteUserProfile(UserProfile userProfile);
     
-    
+    public Task<UserProfile> GetMe(Guid id);
 }

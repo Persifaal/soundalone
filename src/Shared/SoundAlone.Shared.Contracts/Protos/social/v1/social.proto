@@ -37,6 +37,13 @@ service SocialService {
       get: "/api/social/profiles"
     };
   }
+  
+  rpc GetMyProfile (GetMyProfileRequest)
+      returns (Profile){
+    option (google.api.http) ={
+      get: "/api/social/me"
+    };
+  }
 }
 
 message CreateProfileRequest {
@@ -82,4 +89,8 @@ message Profile {
   string avatar_url = 3;
   string banner_url = 4;
   string bio = 5;
+}
+
+message GetMyProfileRequest{
+  string account_id = 1;
 }
