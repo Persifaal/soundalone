@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\SoundAlone.Shared.Contracts\SoundAlone.Shared.Contracts.csproj" />
     <ProjectReference Include="..\SocialService.Domain\SocialService.Domain.csproj" />
   </ItemGroup>
 

@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace AuthService.Infrastructure.Security
 {
@@ -14,12 +15,17 @@ namespace AuthService.Infrastructure.Security
     {
         private readonly AuthOptions _options;
         private readonly byte[] _secretKey;
-        private readonly JwtSecurityTokenHandler _handler = new();
+        private ILogger<JwtTokenService> _logger;
+        private readonly JwtSecurityTokenHandler _handler = new()
+        {
+            MapInboundClaims = false
+        };
 
-        public JwtTokenService(IOptions<AuthOptions> options)
+        public JwtTokenService(IOptions<AuthOptions> options, ILogger<JwtTokenService> logger)
         {
             _options = options.Value;
             _secretKey = Encoding.UTF8.GetBytes(_options.JwtSecret);
+            _logger = logger;
         }
 
         public TokenPair GenerateTokenPair(UserAccount user)
@@ -89,8 +95,9 @@ namespace AuthService.Infrastructure.Security
                 accessToken = new AccessTokenPayload(userId, email, jti, exp);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError($"JWT VALIDATION ERROR: {ex}");
                 return false;
             }
         }

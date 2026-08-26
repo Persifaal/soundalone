@@ -15,5 +15,6 @@ namespace AuthService.Application.Interfaces.Manager
         public Task<UserSession?> GetSessionByHashAsync(string refreshTokenHash, CancellationToken ct = default);
 
         public Task RevokeSessionAsync(UserSession session, CancellationToken ct = default);
+        
     }
 }

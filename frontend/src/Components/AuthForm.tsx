@@ -14,14 +14,14 @@ interface AuthFormProps {
 }
 
 interface FormData {
-    tag: string;
+    username: string;
     email: string;
     password: string;
     confirmPassword: string;
 }
 
 interface FieldErrors {
-    tag?: string;
+    username?: string;
     email?: string;
     password?: string;
     confirmPassword?: string;
@@ -40,7 +40,7 @@ function AuthForm({ mode }: AuthFormProps) {
     const isLogin = mode === "login";
 
     const [formData, setFormData] = useState<FormData>({
-        tag: "",
+        username: "",
         email: "",
         password: "",
         confirmPassword: ""
@@ -96,14 +96,14 @@ function AuthForm({ mode }: AuthFormProps) {
          */
         if (!isLogin) {
 
-            if (!formData.tag.trim()) {
+            if (!formData.username.trim()) {
 
-                newErrors.tag =
+                newErrors.username =
                     "Введите тег";
 
-            } else if (formData.tag.length < 3) {
+            } else if (formData.username.length < 3) {
 
-                newErrors.tag =
+                newErrors.username =
                     "Тег должен содержать минимум 3 символа";
             }
 
@@ -199,7 +199,7 @@ function AuthForm({ mode }: AuthFormProps) {
             else {
 
                 await register({
-                    tag: formData.tag,
+                    username: formData.username,
                     email: formData.email,
                     password: formData.password,
                     confirmPassword:
@@ -312,10 +312,10 @@ function AuthForm({ mode }: AuthFormProps) {
                                         <input
                                             type="text"
                                             placeholder="Введите ваш тег"
-                                            name="tag"
-                                            id="tag"
+                                            name="username"
+                                            id="username"
                                             className="form-input"
-                                            value={formData.tag}
+                                            value={formData.username}
                                             onChange={handleChange}
                                             disabled={isSubmitting}
                                             required
@@ -323,9 +323,9 @@ function AuthForm({ mode }: AuthFormProps) {
 
                                     </div>
 
-                                    {errors.tag && (
+                                    {errors.username && (
                                         <p className="error-text">
-                                            {errors.tag}
+                                            {errors.username}
                                         </p>
                                     )}
 

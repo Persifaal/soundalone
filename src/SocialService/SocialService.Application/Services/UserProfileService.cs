@@ -1,15 +1,19 @@
-﻿using SocialService.Application.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using SocialService.Application.Interfaces;
 using SocialService.Domain.Entities;
+using SoundAlone.Shared.Contracts.Events;
 
 namespace SocialService.Application.Services;
 
 public class UserProfileService : IUserProfileService
 {
     private IUserProfileRepository _userProfileRepository;
+    private readonly ILogger<UserProfileService> _logger;
 
-    public UserProfileService(IUserProfileRepository repository)
+    public UserProfileService(IUserProfileRepository repository, ILogger<UserProfileService> logger)
     {
         _userProfileRepository = repository;
+        _logger = logger;
     }
     
     public Task<List<UserProfile>> GetAllUserProfiles(int page, int pageSize, string? searchString)
@@ -49,5 +53,24 @@ public class UserProfileService : IUserProfileService
     public async Task<UserProfile> GetMe(Guid id)
     {
         return await _userProfileRepository.GetUserByAccountId(id);
+    }
+
+    public async Task CreateFromUserRegisteredAsync(
+        UserRegisteredEvent @event,
+        CancellationToken cancellationToken = default)
+    {
+        var profile = new UserProfile
+        {
+            Id = Guid.NewGuid(),
+            RelatedAccount = @event.UserId,
+            DisplayName = @event.Username,
+            UserTag = @event.Username,
+        };
+
+        await _userProfileRepository.CreateUserProfile(profile);
+
+        _logger.LogInformation(
+            "Profile created for user {UserId}",
+            @event.UserId);
     }
 }

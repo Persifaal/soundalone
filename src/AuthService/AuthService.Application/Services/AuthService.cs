@@ -6,6 +6,7 @@ using AuthService.Application.Models;
 using AuthService.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using System.Text;
+using SoundAlone.Shared.Contracts.Events;
 
 namespace AuthService.Application.Services
 {
@@ -18,6 +19,7 @@ namespace AuthService.Application.Services
         private readonly ISessionRepository _sessionRepository;
         private readonly IJwtTokenService _jwtTokenService;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IKafkaEventPublisher _eventPublisher;
 
         public AuthService(ILogger<AuthService> logger,
             IUserAccountRepository userAccountRepository,
@@ -25,7 +27,8 @@ namespace AuthService.Application.Services
             IEmailConfirmationCodeStore emailConfirmationCodeStore,
             ISessionRepository sessionRepository,
             IJwtTokenService jwtTokenService,
-            IPasswordHasher passwordHasher)
+            IPasswordHasher passwordHasher,
+            IKafkaEventPublisher eventPublisher)
         {
             _logger = logger;
             _userAccountRepository = userAccountRepository;
@@ -34,6 +37,7 @@ namespace AuthService.Application.Services
             _sessionRepository = sessionRepository;
             _jwtTokenService = jwtTokenService;
             _passwordHasher = passwordHasher;
+            _eventPublisher = eventPublisher;
         }
 
         public async Task<AuthResponseDto> LoginAsync(string email, string password, string? userAgent, string? ipAddress)
@@ -71,14 +75,19 @@ namespace AuthService.Application.Services
             }
         }
 
-        public Task<UserSession> MeAsync(string refreshToken)
+        public Task<AccessTokenPayload> MeAsync(string accessToken)
         {
-            if (refreshToken == null)
+            if (string.IsNullOrWhiteSpace(accessToken))
+                throw new UnauthorizedAccessException("Access token is missing.");
+
+            if (!_jwtTokenService.ValidateAccessToken(
+                    accessToken,
+                    out var accessTokenPayload))
             {
-                throw new ArgumentNullException(nameof(refreshToken));
+                throw new UnauthorizedAccessException("Invalid or expired access token.");
             }
 
-            return _sessionRepository.GetByRefreshTokenHashAsync(refreshToken, new CancellationToken());
+            return Task.FromResult(accessTokenPayload);
         }
 
         public async Task<AuthResponseDto> RefreshTokenAsync(string refreshToken, string? userAgent, string? ipAddress)
@@ -172,6 +181,23 @@ namespace AuthService.Application.Services
             await _userAccountRepository.CreateUser(userResult, CancellationToken.None);
             await _userAccountRepository.SaveChangesAsync(CancellationToken.None);
 
+            _logger.LogInformation(
+                "Publishing UserRegisteredEvent. UserId: {UserId}, Username: {Username}, Email: {Email}",
+                userResult.Id,
+                userResult.Username,
+                userResult.Email);
+
+            await _eventPublisher.PublishAsync(
+                new UserRegisteredEvent(
+                    userResult.Id,
+                    userResult.Username,
+                    userResult.Email),
+                CancellationToken.None);
+
+            _logger.LogInformation(
+                "UserRegisteredEvent published. UserId: {UserId}",
+                userResult.Id);
+            
             return await GenerateAuthResponseAsync(userResult, userAgent, ipAddress);
         }
 

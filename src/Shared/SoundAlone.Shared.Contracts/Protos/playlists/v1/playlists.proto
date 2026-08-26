@@ -1,0 +1,61 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "SoundAlone.Contracts.PlaylistsService.V1";
+
+package soundalone.playlists.v1;
+
+import "google/api/annotations.proto";
+
+service PlaylistsService{
+  rpc CreatePlaylist(Playlist)
+      returns(CreatePlaylistResponse){
+    option (google.api.http) = {
+      post: "/api/playlists/create"
+      body: "*"
+    };
+  }
+  
+  rpc GetPlaylistById(GetPlaylistByIdRequest)
+      returns(Playlist){
+    option(google.api.http) = {
+      get:"/api/playlists/playlist?={id}"
+    };
+  }
+
+  rpc GetAllUsersPlaylists(GetAllUsersPlaylistsRequest)
+      returns(PlaylistCollection){
+    option(google.api.http) = {
+      get:"/api/playlists/playlist?={id}"
+    };
+  }
+  
+  rpc UpdatePlaylist(Playlist)
+      returns(CreatePlaylistResponse){
+    option (google.api.http) = {
+      post: "/api/playlists/update?={id}"
+      body: "*"
+    };
+  }
+}
+
+message CreatePlaylistResponse{
+  string id = 1;
+}
+
+message GetPlaylistByIdRequest{
+  
+}
+
+message GetAllUsersPlaylistsRequest{
+  
+}
+message PlaylistCollection{
+  repeated Playlist playlists = 1;
+}
+message Playlist{
+  string name = 1;
+  string description = 2;
+  string playlistType = 3;
+  string accessType = 4;
+  string owner = 5;
+}

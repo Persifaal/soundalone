@@ -63,7 +63,7 @@ export function AuthProvider({
                     method: "GET",
 
                     headers: {
-                        Authorization: token
+                        Authorization: `Bearer ${token}`
                     }
                 }
             );
@@ -76,7 +76,6 @@ export function AuthProvider({
 
             const userData: UserProfile =
                 await response.json();
-
             setUser(userData);
 
         } catch (error) {
@@ -134,6 +133,14 @@ export function AuthProvider({
         cookies.set(
             "auth-token",
             authData.accessToken,
+            {
+                path: "/"
+            }
+        );
+
+        cookies.set(
+            "refresh-token",
+            authData.refreshToken,
             {
                 path: "/"
             }

@@ -8,11 +8,17 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
 {
     private readonly IAuthService _authService;
     private readonly IEmailConfirmationService _emailConfirmationService;
+    private readonly ILogger<AuthGrpcService> _logger;
 
-    public AuthGrpcService(IAuthService authService, IEmailConfirmationService emailConfirmationService)
+    public AuthGrpcService(
+        IAuthService authService, 
+        IEmailConfirmationService emailConfirmationService, 
+        ILogger<AuthGrpcService> logger
+        )
     {
         _authService = authService;
         _emailConfirmationService = emailConfirmationService;
+        _logger = logger;
     }
 
     public override async Task<RegisterResponse> Register(RegisterRequest request, ServerCallContext context)
@@ -29,6 +35,7 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
 
             await _emailConfirmationService.SendConfirmationCodeASync(tokens.UserId, tokens.Email, context.CancellationToken);
 
+            
             return new RegisterResponse
             {
                 AccessToken = tokens.AccessToken,
@@ -49,7 +56,7 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
             throw new RpcException(new Status(StatusCode.Internal, ex.Message));
         }
     }
-
+    
     public override async Task<LoginResponse> Login(LoginRequest request, ServerCallContext context)
     {
         try
@@ -173,24 +180,60 @@ public class AuthGrpcService : SoundAlone.Contracts.Auth.V1.AuthService.AuthServ
         }
     }
 
-    public override async Task<MeResponse> Me(MeRequest request, ServerCallContext context)
+    public override async Task<MeResponse> Me(
+        MeRequest request,
+        ServerCallContext context)
     {
         try
         {
-            var token = context.RequestHeaders.GetValue("Authorization");
-            
-            if(token == null)
-                throw new RpcException(new Status(StatusCode.Unauthenticated, string.Empty));
-            
-            Guid? id = (await _authService.MeAsync(token)).UserId;
+            var authorization = context.RequestHeaders.GetValue("Authorization");
+
+            if (string.IsNullOrWhiteSpace(authorization))
+            {
+                throw new RpcException(
+                    new Status(
+                        StatusCode.Unauthenticated,
+                        "Authorization header is missing."));
+            }
+
+            if (!authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new RpcException(
+                    new Status(
+                        StatusCode.Unauthenticated,
+                        "Invalid Authorization header."));
+            }
+
+            var accessToken = authorization["Bearer ".Length..].Trim();
+
+            var tokenPayload = await _authService.MeAsync(accessToken);
+
             return new MeResponse
             {
-                UserId = id.ToString()
+                UserId = tokenPayload.Userid.ToString()
             };
+        }
+        catch (RpcException)
+        {
+            throw;
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            _logger.LogWarning(ex, "Unauthorized /auth/me request");
+
+            throw new RpcException(
+                new Status(
+                    StatusCode.Unauthenticated,
+                    ex.Message));
         }
         catch (Exception ex)
         {
-            throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+            _logger.LogError(ex, "Error during /auth/me");
+
+            throw new RpcException(
+                new Status(
+                    StatusCode.Internal,
+                    "Internal server error."));
         }
-    }  
+    } 
 }
