@@ -9,6 +9,7 @@ public class PlaylistDbContext : DbContext
 
     public DbSet<Playlist> Playlists { get; set; }
     public DbSet<PlaylistAuthor> PlaylistAuthors { get; set; }
+    public DbSet<PlaylistSongParticipant> PlaylistSongParticipants { get; set; }
     
     public DbSet<Song> Songs { get; set; }
     public DbSet<SongAuthor> SongAuthors { get; set; }

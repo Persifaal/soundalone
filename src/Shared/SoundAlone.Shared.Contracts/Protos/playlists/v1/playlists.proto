@@ -36,19 +36,45 @@ service PlaylistsService{
       body: "*"
     };
   }
+  
+  rpc AddSongToPlaylist(AddSongRequest)
+      returns(AddSongResponse){
+    option (google.api.http) = {
+      post:"/api/playlists/add-song"
+      body: "*"
+    };
+  }
+  
+  rpc RemoveSongToPlaylist(RemoveSongRequest)
+      returns(RemoveSongResponse){
+    option (google.api.http) = {
+        put:"/api/playlists/remove-song"
+        body: "*"
+    };
+  }
 }
+
+message AddSongRequest{
+  string SongId = 1;
+  string PlaylistId = 2;
+}
+
+message RemoveSongRequest{
+  string SongId = 1;
+  string PlaylistId = 2;
+}
+
+message AddSongResponse{}
+message RemoveSongResponse{}
 
 message CreatePlaylistResponse{
   string id = 1;
 }
 
-message GetPlaylistByIdRequest{
-  
-}
+message GetPlaylistByIdRequest{}
 
-message GetAllUsersPlaylistsRequest{
-  
-}
+message GetAllUsersPlaylistsRequest{}
+
 message PlaylistCollection{
   repeated Playlist playlists = 1;
 }

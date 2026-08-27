@@ -85,6 +85,26 @@ namespace PlaylistService.Infrastructure.Migrations
                     b.ToTable("playlist_authors", "playlists_schema");
                 });
 
+            modelBuilder.Entity("PlaylistService.Domain.Entities.PlaylistSongParticipant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("PlaylistId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("playlist_id");
+
+                    b.Property<Guid>("SongId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("song_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("playlist_song_participants", "playlists_schema");
+                });
+
             modelBuilder.Entity("PlaylistService.Domain.Entities.Song", b =>
                 {
                     b.Property<Guid>("Id")
