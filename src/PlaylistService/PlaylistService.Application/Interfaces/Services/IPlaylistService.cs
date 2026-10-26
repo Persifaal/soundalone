@@ -4,7 +4,7 @@ namespace PlaylistService.Application.Interfaces.Services;
 
 public interface IPlaylistService
 {
-    public Task CreatePlaylist(Playlist playlist);
+    public Task<Guid> CreatePlaylist(Playlist playlist);
     public Task DeletePlaylist(Playlist playlist);
     public Task UpdatePlaylist(Playlist playlist);
     
@@ -14,5 +14,7 @@ public interface IPlaylistService
     
     public Task AddSongToPlaylist(Guid playlistId, Guid songId);
     public Task RemoveSongFromPlaylist(Guid playlistId, Guid songId);
+    
+    public Task UploadCover(Guid playlistId, string fileName, FileStream stream);
     
 }

@@ -93,4 +93,18 @@ public class PlaylistsRepository : IPlaylistsRepository
         _context.PlaylistSongParticipants.Remove(participant);
         await _context.SaveChangesAsync();
     }
+
+    public async Task UploadCover(Guid playlistId, string path)
+    {
+        Playlist? target = await GetAsync(playlistId);
+        if (target == null)
+        {
+            throw new Exception("Playlist not found");
+        }
+        
+        target.CoverPath = path;
+        
+        _context.Playlists.Update(target);
+        await _context.SaveChangesAsync();
+    }
 }

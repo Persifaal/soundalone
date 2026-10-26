@@ -17,9 +17,9 @@ public class PlaylistService : IPlaylistService
     }
 
 
-    public Task CreatePlaylist(Playlist playlist)
+    public async Task<Guid> CreatePlaylist(Playlist playlist)
     {
-        return _playlistsRepository.CreateAsync(playlist);
+        return await _playlistsRepository.CreateAsync(playlist);
     }
 
     public Task DeletePlaylist(Playlist playlist)
@@ -55,5 +55,10 @@ public class PlaylistService : IPlaylistService
     public Task RemoveSongFromPlaylist(Guid playlistId, Guid songId)
     {
         return _playlistsRepository.RemoveTrackFromPlaylistAsync(playlistId, songId);
+    }
+
+    public Task UploadCover(Guid playlistId, string fileName, FileStream stream)
+    {
+        throw new NotImplementedException();
     }
 }

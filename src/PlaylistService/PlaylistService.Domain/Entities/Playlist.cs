@@ -39,4 +39,7 @@ public class Playlist
     
     [Column("updated_at")]
     public DateTime? UpdatedAt { get; set; }
+    
+    [Column("cover_path")]
+    public string CoverPath { get; set; } = string.Empty;
 }

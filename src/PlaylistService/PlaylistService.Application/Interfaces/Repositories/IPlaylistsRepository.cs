@@ -11,4 +11,5 @@ public interface IPlaylistsRepository
     public Task<List<Playlist>> GetAllOfUserAsync(Guid userId);
     public Task AddTrackToPlaylistAsync(Guid playlistId, Guid trackId);
     public Task RemoveTrackFromPlaylistAsync(Guid playlistId, Guid trackId);
+    public Task UploadCover(Guid playlistId, string path);
 }
